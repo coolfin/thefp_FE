@@ -107,13 +107,42 @@
           </p>
 
           <div class="text-theme">
-            비밀번호를 잊으셨나요?
-            <span
-              class="underline decoration-[#294936] cursor-pointer"
-              @click="findPw"
-            >
-              비밀번호 찾기
-            </span>
+            <div class="flex items-center gap-x-2">
+              <input
+                type="checkbox"
+                class="cursor-pointer"
+                v-model="isTermChecked"
+                id="term"
+              />
+              <label class="cursor-pointer" for="term">
+                이용약관 동의 (필수)
+              </label>
+              <a
+                href="https://coolfin.notion.site/75fccd0924d54c52ae9599698efd8cc7?pvs=4"
+                target="_blank"
+                class="text-sm font-normal underline cursor-pointer hover:opacity-70 decoration-theme"
+              >
+                보기
+              </a>
+            </div>
+            <div class="flex items-center gap-x-2">
+              <input
+                type="checkbox"
+                class="cursor-pointer"
+                v-model="isPersonalChecked"
+                id="personal"
+              />
+              <label class="cursor-pointer" for="personal">
+                개인정보 수집 및 이용 동의 (필수)
+              </label>
+              <a
+                href="https://coolfin.notion.site/e552e5071f59460fa924de1f0ed26d0a?pvs=4"
+                target="_blank"
+                class="text-sm font-normal underline cursor-pointer hover:opacity-70 decoration-theme"
+              >
+                보기
+              </a>
+            </div>
           </div>
           <button type="submit" class="py-4 text-white rounded-lg bg-theme">
             로그인
@@ -155,6 +184,9 @@ const signUpPwCheck = ref("");
 const isPwVisible = ref(false);
 const isPwCheckVisible = ref(false);
 
+const isTermChecked = ref(false); // 이용약관 동의
+const isPersonalChecked = ref(false); // 개인정보 수집 및 이용 동의
+
 const errText = ref("");
 
 const handleVisible = () => {
@@ -184,6 +216,11 @@ const compareInput = () => {
   }
   if (signUpPw.value !== signUpPwCheck.value) {
     errText.value = "비밀번호가 일치하지 않습니다.";
+    return false;
+  }
+
+  if (!isTermChecked || !isPersonalChecked) {
+    errText.value = "필수 약관에 모두 동의해주세요.";
     return false;
   }
 
