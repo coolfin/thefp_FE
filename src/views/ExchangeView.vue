@@ -15,7 +15,7 @@
       <div class="flex items-center p-4 bg-theme rounded-l-lg">
         <select
           v-model="FromselectedExchange"
-          class="text-white px-2 font-bold focus:outline-none appearance-none bg-transparent text-center"
+          class="cursor-pointer text-white px-2 font-bold focus:outline-none appearance-none bg-transparent text-center"
         >
           <option
             v-for="exchange in dummyExchange"
@@ -30,7 +30,7 @@
 
       <input
         type="text"
-        :placeholder="FromselectedExchange.symbol"
+        placeholder="금액을 입력하세요."
         class="text-theme flex-1 focus:outline-none text-end pr-4"
         v-model="FromNum"
         @input="calExchange"
