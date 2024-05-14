@@ -145,18 +145,7 @@
             </div>
           </div>
           <button type="submit" class="py-4 text-white rounded-lg bg-theme">
-            로그인
-          </button>
-        </form>
-
-        <!-- google login -->
-        <form class="w-[500px]">
-          <button
-            type="submit"
-            class="flex items-center justify-center w-full py-4 mt-4 transition-colors duration-500 ease-in-out border rounded-lg text-theme border-theme hover:bg-theme hover:text-white"
-          >
-            <img src="@/assets/google-logo.png" class="w-6 h-6 mr-2" />
-            구글로 로그인
+            회원가입
           </button>
         </form>
       </div>
