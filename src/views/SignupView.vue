@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen">
+  <div class="flex flex-col h-screen md:flex-row">
     <LoginBanner />
 
     <!-- login -->
