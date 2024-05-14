@@ -149,15 +149,6 @@
           </button>
         </form>
       </div>
-
-      <div class="flex flex-col items-center justify-center font-bold">
-        <p>아직 계정이 없으세요?</p>
-        <RouterLink
-          :to="{ name: 'signup' }"
-          class="underline decoration-[#294936] text-theme cursor-pointer"
-          >회원가입</RouterLink
-        >
-      </div>
     </div>
   </div>
 </template>
