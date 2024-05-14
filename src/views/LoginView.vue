@@ -1,0 +1,135 @@
+<template>
+  <div class="flex h-screen">
+    <!-- banner -->
+    <LoginBanner />
+
+    <!-- login -->
+    <div class="flex flex-col items-center justify-between flex-1 py-20">
+      <!-- logo -->
+      <img
+        src="@/assets/logo.png"
+        class="w-[180px] mx-auto mb-10 shadow-lg rounded-full"
+      />
+
+      <!-- input container -->
+      <div
+        class="flex flex-col items-center justify-start flex-1 py-20 gap-y-4"
+      >
+        <!-- simple input -->
+
+        <form
+          @submit.prevent="onLogin"
+          class="w-[500px] flex flex-col font-bold gap-y-4 text-theme"
+        >
+          <div class="flex p-4 border rounded-lg border-theme">
+            <img
+              src="@/assets/icons/input-id-icon.svg"
+              alt="id-icon"
+              class="mr-4"
+            />
+            <input
+              type="text"
+              class="flex-1 font-normal focus:outline-none"
+              placeholder="이메일을 입력하세요."
+              v-model="userId"
+            />
+          </div>
+          <div class="flex p-4 border rounded-lg border-theme">
+            <img
+              src="@/assets/icons/input-pw-icon.svg"
+              alt="pw-icon"
+              class="mr-4"
+            />
+            <input
+              :type="isPwVisible ? 'text' : 'password'"
+              class="flex-1 focus:outline-none"
+              placeholder="⦁⦁⦁⦁⦁⦁⦁⦁"
+              v-model="userPw"
+            />
+
+            <!-- 비밀번호 visibility -->
+            <div
+              @click="handleVisible"
+              class="flex items-center justify-center"
+            >
+              <img
+                v-if="isPwVisible"
+                src="@/assets/icons/visible-off-icon.svg"
+                alt="pw-visible-icon"
+                class="w-6 h-6 cursor-pointer opacity-70"
+              />
+              <img
+                v-else
+                src="@/assets/icons/visible-icon.svg"
+                alt="pw-visible-icon"
+                class="w-6 h-6 cursor-pointer opacity-70"
+              />
+            </div>
+          </div>
+          <div class="text-theme">
+            비밀번호를 잊으셨나요?
+            <span
+              class="underline decoration-[#294936] cursor-pointer"
+              @click="findPw"
+            >
+              비밀번호 찾기
+            </span>
+          </div>
+          <button type="submit" class="py-4 text-white rounded-lg bg-theme">
+            로그인
+          </button>
+        </form>
+
+        <!-- google login -->
+        <form class="w-[500px]">
+          <button
+            type="submit"
+            class="flex items-center justify-center w-full py-4 mt-4 transition-colors duration-500 ease-in-out border rounded-lg text-theme border-theme hover:bg-theme hover:text-white"
+          >
+            <img src="@/assets/google-logo.png" class="w-6 h-6 mr-2" />
+            구글로 로그인
+          </button>
+        </form>
+      </div>
+
+      <div class="flex flex-col items-center justify-center font-bold">
+        <p>아직 계정이 없으세요?</p>
+        <RouterLink
+          :to="{ name: 'signup' }"
+          class="underline decoration-[#294936] text-theme cursor-pointer"
+          >회원가입</RouterLink
+        >
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import LoginBanner from "@/components/login/LoginBanner.vue";
+import { ref } from "vue";
+
+const isPwVisible = ref(false);
+const userId = ref("");
+const userPw = ref("");
+
+const handleVisible = () => {
+  isPwVisible.value = !isPwVisible.value;
+};
+
+const findPw = () => {
+  alert("준비 중 입니다");
+};
+
+const onLogin = () => {
+  if (!userId.value || !userPw.value) {
+    alert("아이디와 비밀번호를 입력해주세요.");
+    return;
+  }
+  alert("아이디: " + userId.value + " 비밀번호: " + userPw.value);
+
+  userId.value = "";
+  userPw.value = "";
+};
+</script>
+
+<style scoped></style>

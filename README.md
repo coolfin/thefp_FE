@@ -1,10 +1,10 @@
 <div align="center">
-    <img src="![Logo](image.png)" alt="Logo" width="80" height="80">
+    <img src="![Logo](./Logo.png)" alt="Logo" width="80" height="80">
 
   <h3 align="center">THE FP</h3>
 
   <p align="center">
-    <h3><a href="#">서비스 바로가기</a></h3>
+    <h3><a href="https://thefp-bcw8u4ic8-coolfins-projects.vercel.app/">서비스 바로가기</a></h3>
   </p>
 </div>
 
