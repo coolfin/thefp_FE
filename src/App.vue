@@ -1,7 +1,11 @@
 <template>
-  <div>Main</div>
+  <RouterView />
 </template>
 
 <script setup></script>
 
-<style scoped></style>
+<style>
+* {
+  font-family: "Inter", "Noto Sans KR", sans-serif;
+}
+</style>
