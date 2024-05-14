@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="p-4 font-bold bg-red-200 flex items-center gap-x-8">
+    <nav class="p-4 font-bold flex items-center gap-x-8">
       <!-- logo -->
       <div
         class="flex items-center gap-x-2 font-bold cursor-pointer"
@@ -13,7 +13,7 @@
       <RouterLink :to="{ name: 'info' }">상품정보</RouterLink>
       <RouterLink :to="{ name: 'exchange' }">환율</RouterLink>
 
-      <div class="flex-1 text-sm bg-blue-200 flex items-center justify-end">
+      <div class="flex-1 text-sm flex items-center justify-end">
         <span class="font-bold">admin</span>
         님
       </div>
