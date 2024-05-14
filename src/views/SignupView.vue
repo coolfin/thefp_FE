@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen">
+  <div class="flex flex-col h-screen md:flex-row">
     <LoginBanner />
 
     <!-- login -->
@@ -149,15 +149,6 @@
           </button>
         </form>
       </div>
-
-      <div class="flex flex-col items-center justify-center font-bold">
-        <p>아직 계정이 없으세요?</p>
-        <RouterLink
-          :to="{ name: 'signup' }"
-          class="underline decoration-[#294936] text-theme cursor-pointer"
-          >회원가입</RouterLink
-        >
-      </div>
     </div>
   </div>
 </template>
@@ -187,7 +178,7 @@ const handleCheckVisible = () => {
 };
 
 const compareInput = () => {
-  if (!signUpId) {
+  if (!signUpId.value) {
     errText.value = "이메일을 입력해주세요.";
     return false;
   } else {
@@ -199,7 +190,7 @@ const compareInput = () => {
     }
   }
 
-  if (!signUpPw) {
+  if (!signUpPw.value) {
     errText.value = "비밀번호를 입력해주세요.";
     return false;
   }
@@ -208,7 +199,7 @@ const compareInput = () => {
     return false;
   }
 
-  if (!isTermChecked || !isPersonalChecked) {
+  if (!isTermChecked.value || !isPersonalChecked.value) {
     errText.value = "필수 약관에 모두 동의해주세요.";
     return false;
   }
@@ -217,11 +208,15 @@ const compareInput = () => {
   return true;
 };
 
+//temp router
+import { useRouter } from "vue-router";
+const router = useRouter();
 const onLogin = () => {
   if (!compareInput()) {
     return;
   }
-  console.log("login");
+  alert("admin님, 회원가입이 완료되었습니다.");
+  router.push("/main");
 };
 </script>
 
