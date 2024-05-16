@@ -66,6 +66,11 @@
               />
             </div>
           </div>
+
+          <p v-if="errText" class="font-normal text-red-500">
+            {{ errText }}
+          </p>
+
           <div class="text-theme">
             비밀번호를 잊으셨나요?
             <span
@@ -81,15 +86,15 @@
         </form>
 
         <!-- google login -->
-        <form class="w-[500px]">
-          <button
-            type="submit"
-            class="flex items-center justify-center w-full py-4 mt-4 transition-colors duration-500 ease-in-out border rounded-lg text-theme border-theme hover:bg-theme hover:text-white"
-          >
-            <img src="@/assets/google-logo.png" class="w-6 h-6 mr-2" />
-            구글로 로그인
-          </button>
-        </form>
+
+        <button
+          @click="clickGoogleLogin"
+          type="submit"
+          class="flex items-center justify-center w-full py-4 mt-4 transition-colors duration-500 ease-in-out border rounded-lg text-theme border-theme hover:bg-theme hover:text-white"
+        >
+          <img src="@/assets/google-logo.png" class="w-6 h-6 mr-2" />
+          구글로 로그인
+        </button>
       </div>
 
       <div class="flex flex-col items-center justify-center font-bold">
@@ -107,28 +112,43 @@
 <script setup>
 import LoginBanner from "@/components/login/LoginBanner.vue";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
+
+const router = useRouter();
 
 const isPwVisible = ref(false);
 const userId = ref("");
 const userPw = ref("");
+
+const errText = ref("");
+
+const store = useUserStore();
 
 const handleVisible = () => {
   isPwVisible.value = !isPwVisible.value;
 };
 
 const findPw = () => {
-  alert("준비 중 입니다");
+  router.push({ name: "password-find" });
 };
 
 const onLogin = () => {
   if (!userId.value || !userPw.value) {
-    alert("아이디와 비밀번호를 입력해주세요.");
+    errText.value = "아이디와 비밀번호를 입력해주세요.";
     return;
   }
-  alert("아이디: " + userId.value + " 비밀번호: " + userPw.value);
+  try {
+    store.login(userId.value, userPw.value);
+  } catch (e) {
+    errText.value = e.message;
+    return;
+  }
+  router.push({ name: "main" });
+};
 
-  userId.value = "";
-  userPw.value = "";
+const clickGoogleLogin = () => {
+  alert("구글 연동은 준비 중 입니다.");
 };
 </script>
 
