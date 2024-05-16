@@ -130,7 +130,7 @@ const handleVisible = () => {
 };
 
 const findPw = () => {
-  alert("준비 중 입니다");
+  router.push({ name: "password-find" });
 };
 
 const onLogin = () => {

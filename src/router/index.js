@@ -14,6 +14,11 @@ const router = createRouter({
       component: () => import("@/views/SignupView.vue"),
     },
     {
+      path: "/findpw",
+      name: "password-find",
+      component: () => import("@/views/PasswordFindView.vue"),
+    },
+    {
       path: "/main",
       name: "main",
       component: () => import("@/views/MainView.vue"),
@@ -46,10 +51,18 @@ const router = createRouter({
 import { useUserStore } from "@/stores/user";
 router.beforeEach((to, from, next) => {
   const store = useUserStore();
-  if (!store.loginUser && to.name !== "home" && to.name !== "signup") {
+  if (
+    !store.loginUser &&
+    to.name !== "home" &&
+    to.name !== "signup" &&
+    to.name !== "password-find"
+  ) {
     alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
     next({ name: "home" });
-  } else if (store.loginUser && (to.name === "home" || to.name === "signup")) {
+  } else if (
+    store.loginUser &&
+    (to.name === "home" || to.name === "signup" || to.name === "password-find")
+  ) {
     next({ name: "info" });
   } else {
     next();
