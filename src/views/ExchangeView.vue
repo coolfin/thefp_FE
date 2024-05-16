@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col items-center justify-center gap-y-20 py-20">
+  <div class="flex flex-col items-center justify-center py-20 gap-y-20">
     <!-- header text -->
-    <div class="gap-y-2 flex flex-col items-center justify-center">
-      <h1 class="text-4xl font-bold text-theme">환율을 계산해 보세요!</h1>
-      <p class="text-[#5B8266] text-sm">
+    <div class="flex flex-col items-center justify-center flex-1 pt-20 gap-y-4">
+      <h1 class="text-5xl font-bold text-theme">환율을 계산해 보세요!</h1>
+      <p class="text-[#5B8266] text-lg">
         환율 정보는 매일 자정에 업데이트 됩니다.
       </p>
     </div>
@@ -12,16 +12,16 @@
     <div
       class="w-[600px] bg-white border border-theme rounded-lg flex justify-between items-center"
     >
-      <div class="flex items-center p-4 bg-theme rounded-l-lg">
+      <div class="flex items-center p-4 rounded-l-lg bg-theme">
         <select
           v-model="FromselectedExchange"
-          class="cursor-pointer text-white px-2 font-bold focus:outline-none appearance-none bg-transparent text-center"
+          class="px-2 font-bold text-center text-white bg-transparent appearance-none cursor-pointer focus:outline-none"
         >
           <option
             v-for="exchange in dummyExchange"
             :value="exchange"
             :key="'_from' + exchange.name"
-            class="text-theme font-bold"
+            class="font-bold text-theme"
           >
             {{ exchange.name }}
           </option>
@@ -31,7 +31,7 @@
       <input
         type="text"
         placeholder="금액을 입력하세요."
-        class="text-theme flex-1 focus:outline-none text-end pr-4"
+        class="flex-1 pr-4 text-theme focus:outline-none text-end"
         v-model="FromNum"
         @input="calExchange"
       />
@@ -40,32 +40,37 @@
     <!-- result -->
     <div
       v-if="FromNum && ToNum"
-      class="text-theme gap-y-4 text-4xl font-bold flex flex-col justify-center items-center"
+      class="h-[300px] flex flex-col items-center justify-center text-4xl font-bold text-theme"
     >
-      <p>{{ FromNum }} 원</p>
+      <p>{{ showFromExchangeNum }}</p>
       <p>=</p>
-      <p>{{ ToNum }} {{ FromselectedExchange.symbol }}</p>
+      <p>{{ showToExchangeNum }}</p>
+    </div>
+    <div v-else class="h-[300px]">
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
     </div>
   </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from "vue";
 
-const FromNum = ref('');
-const ToNum = ref('');
+const FromNum = ref("");
+const ToNum = ref("");
 
 const FromselectedExchange = ref({
-  name: '대한민국 원',
+  name: "대한민국 원",
   rate: 1,
-  symbol: '원',
+  symbol: "원",
 });
 
 const dummyExchange = ref([
-  { name: '대한민국 원', rate: 1, symbol: '원' },
-  { name: '미국 달러', rate: 0.00073, symbol: '달러' },
-  { name: '유럽 유로', rate: 0.00068, symbol: '유로' },
-  { name: '일본 엔', rate: 0.11, symbol: '엔' },
-  { name: '중국 위안', rate: 0.0053, symbol: '위안' },
+  { name: "대한민국 원", rate: 1, symbol: "원" },
+  { name: "미국 달러", rate: 0.00073, symbol: "달러" },
+  { name: "유럽 유로", rate: 0.00068, symbol: "유로" },
+  { name: "일본 엔", rate: 0.11, symbol: "엔" },
+  { name: "중국 위안", rate: 0.0053, symbol: "위안" },
 ]);
 
 watch(FromselectedExchange, () => {
@@ -73,7 +78,71 @@ watch(FromselectedExchange, () => {
 });
 
 const calExchange = () => {
+  if (FromNum.value.length > 12) {
+    alert("금액은 12자리까지 입력 가능합니다.");
+    FromNum.value = FromNum.value.slice(0, 12);
+  }
+
+  const regexp = /^[0-9]*$/;
+  if (!regexp.test(FromNum.value)) {
+    alert("숫자만 입력 가능합니다.");
+    FromNum.value = FromNum.value.slice(0, -1);
+  }
+
   ToNum.value = FromNum.value * FromselectedExchange.value.rate;
+  ToNum.value = ToNum.value.toString();
 };
+
+const showFromExchangeNum = computed(() => {
+  if (FromNum.value.length <= 4) {
+    return `${FromNum.value} 원`;
+  } else if (FromNum.value.length <= 8) {
+    return `${FromNum.value.slice(0, -4)}만 ${FromNum.value.slice(-4)} 원`;
+  }
+  return `${FromNum.value.slice(0, -8)}억 ${FromNum.value.slice(
+    -8,
+    -4
+  )}만 ${FromNum.value.slice(-4)} 원`;
+});
+
+const showToExchangeNum = computed(() => {
+  if (FromselectedExchange.value.symbol === "원") {
+    if (ToNum.value.length <= 4) {
+      return `${ToNum.value} 원`;
+    } else if (ToNum.value.length <= 8) {
+      return `${ToNum.value.slice(0, -4)}만 ${ToNum.value.slice(-4)} 원`;
+    }
+    return `${ToNum.value.slice(0, -8)}억 ${ToNum.value.slice(
+      -8,
+      -4
+    )}만 ${ToNum.value.slice(-4)} 원`;
+  } else {
+    const integerPart = Math.floor(parseFloat(ToNum.value)).toString();
+    const decimalPart = Math.round(
+      (parseFloat(ToNum.value) - parseFloat(integerPart)) * 10000
+    ).toString();
+
+    if (integerPart.length <= 4) {
+      return `${integerPart}.${decimalPart} ${FromselectedExchange.value.symbol}`;
+    } else if (integerPart.length <= 8) {
+      return `${integerPart.slice(0, -4)}만 ${integerPart.slice(
+        -4
+      )}.${decimalPart} ${FromselectedExchange.value.symbol}`;
+    } else if (integerPart.length <= 12) {
+      return `${integerPart.slice(0, -8)}억 ${integerPart.slice(
+        -8,
+        -4
+      )}만 ${integerPart.slice(-4)}.${decimalPart} ${
+        FromselectedExchange.value.symbol
+      }`;
+    }
+    return `${integerPart.slice(0, -12)}조 ${integerPart.slice(
+      -12,
+      -8
+    )}억 ${integerPart.slice(-8, -4)}만 ${integerPart.slice(
+      -4
+    )}.${decimalPart} ${FromselectedExchange.value.symbol}`;
+  }
+});
 </script>
 <style scoped></style>
