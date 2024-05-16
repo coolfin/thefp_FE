@@ -1,5 +1,5 @@
 <template>
-  <div class="w-3/5 py-10 mx-auto">
+  <div class="px-4 py-10 mx-auto md:w-3/5 md:px-0">
     <!-- 추천 금융상품 -->
     <BestFinancialProducts />
 
@@ -8,7 +8,7 @@
   </div>
 </template>
 <script setup>
-import BestFinancialProducts from '@/components/info/BestFinancialProducts.vue';
-import FinancialProducts from '@/components/info/FinancialProducts.vue';
+import BestFinancialProducts from "@/components/info/BestFinancialProducts.vue";
+import FinancialProducts from "@/components/info/FinancialProducts.vue";
 </script>
 <style scoped></style>
