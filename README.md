@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="![Logo](./Logo.png)" alt="Logo" width="80" height="80">
+    <img src="./src/assets/logo.png" alt="Logo" width="80" height="80">
 
   <h3 align="center">THE FP</h3>
 
