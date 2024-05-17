@@ -34,6 +34,12 @@ const router = createRouter({
           name: "exchange",
           component: () => import("@/views/ExchangeView.vue"),
         },
+        {
+          path: "profile",
+          name: "profile",
+          component: () => import("@/views/ProfileView.vue"),
+        },
+
       ],
     },
     {
@@ -52,7 +58,7 @@ import { useUserStore } from "@/stores/user";
 router.beforeEach((to, from, next) => {
   const store = useUserStore();
   if (
-    !store.loginUser &&
+    !store.getLoginUser &&
     to.name !== "home" &&
     to.name !== "signup" &&
     to.name !== "password-find"
@@ -60,7 +66,7 @@ router.beforeEach((to, from, next) => {
     alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
     next({ name: "home" });
   } else if (
-    store.loginUser &&
+    store.getLoginUser &&
     (to.name === "home" || to.name === "signup" || to.name === "password-find")
   ) {
     next({ name: "info" });

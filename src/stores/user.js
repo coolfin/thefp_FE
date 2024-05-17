@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 
 export const useUserStore = defineStore(
   "user",
@@ -23,6 +23,21 @@ export const useUserStore = defineStore(
       return findUser.value === null;
     });
 
+    const getLoginUser = computed(() => {
+      return loginUser.value;
+    });
+
+    // 내 프로필에서 이름 변경 시, 로그인한 유저의 이름도 변경
+    watch(loginUser, (newUser, oldUser) => {
+      if (newUser === null) return;
+      users.value = users.value.map((user) => {
+        if (user.id === newUser.id) {
+          return newUser;
+        }
+        return user;
+      });
+    })
+
     //action
     const login = (email, password) => {
       const user = users.value.find((user) => user.email === email);
@@ -35,6 +50,10 @@ export const useUserStore = defineStore(
       loginUser.value = user;
       alert(loginUser.value.name + "님 환영합니다.");
     };
+
+    const logout = () => {
+      loginUser.value = null;
+    }
 
     const signup = (user) => {
       users.value.map((userData) => {
@@ -56,25 +75,33 @@ export const useUserStore = defineStore(
     };
 
     const changePassword = (password) => {
-      findUser.value.password = password;
+      users.value = users.value.map((user) => {
+        if (user.id === findUser.value.id) {
+          user.password = password;
+          alert(user.name + "님의 비밀번호가 변경되었습니다.");
+          findUser.value = null;
+          return user;
+        }
+        return user;
+      });
+    }
 
-      const tarUser = users.value.find((user) => user.email === findUser.value.email);
-      tarUser.password = password;
-
-      users.value = [...users.value, tarUser]
-      alert(findUser.value.name + "님의 비밀번호가 변경되었습니다.");
-
+    const editLoginuserName = (name) => {
+      loginUser.value.name = name;
     }
 
     return {
       users,
       loginUser,
       findUser,
+      getLoginUser,
       isFoundUser,
       login,
+      logout,
       signup,
       findEmail,
       changePassword,
+      editLoginuserName,
     };
   },
   {

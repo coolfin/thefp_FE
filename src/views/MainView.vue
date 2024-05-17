@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="flex items-center p-4 font-bold gap-x-8">
+    <nav class="flex items-center p-4 gap-x-8">
       <!-- logo -->
       <div
         class="flex items-center font-bold cursor-pointer gap-x-2"
@@ -10,12 +10,17 @@
         <h1>THE FP</h1>
       </div>
 
-      <RouterLink :to="{ name: 'info' }">상품정보</RouterLink>
-      <RouterLink :to="{ name: 'exchange' }">환율</RouterLink>
+      <RouterLink :to="{ name: 'info' }" class="font-bold">상품정보</RouterLink>
+      <RouterLink :to="{ name: 'exchange' }" class="font-bold">환율</RouterLink>
 
-      <div class="flex items-center justify-end flex-1 text-sm">
-        <span class="font-bold">admin</span>
-        님
+      <div class="relative flex items-center justify-end pr-4 flex-1 text-sm">
+        <img
+          @click="isModalOpen = !isModalOpen"
+          src="@/assets/icons/profile-icon.svg"
+          alt="profile-icon"
+          class="w-10 h-10 cursor-pointer"
+        />
+        <UserModal v-if="isModalOpen" :changeIsModalOpen="changeIsModalOpen" />
       </div>
     </nav>
 
@@ -82,22 +87,31 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useUserStore } from '@/stores/user';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import UserModal from '@/components/UserModal.vue';
 
+const store = useUserStore();
 const router = useRouter();
 
+const isModalOpen = ref(false);
+
 const moveInfo = () => {
-  router.push("/main/info");
+  router.push('/main/info');
 };
 
 const moveGithub = () => {
-  window.location.href = "https://github.com/coolfin/thefp_FE";
+  window.location.href = 'https://github.com/coolfin/thefp_FE';
 };
 
 const moveFigma = () => {
   window.location.href =
-    "https://www.figma.com/design/HGKRV1IGtHBIY2Q3r2VMkL/the-fp?node-id=0%3A1&t=D2xhlxwae9DEg7Bo-1";
+    'https://www.figma.com/design/HGKRV1IGtHBIY2Q3r2VMkL/the-fp?node-id=0%3A1&t=D2xhlxwae9DEg7Bo-1';
+};
+
+const changeIsModalOpen = () => {
+  isModalOpen.value = !isModalOpen.value;
 };
 </script>
 <style scoped></style>
