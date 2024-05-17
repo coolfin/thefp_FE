@@ -52,8 +52,19 @@ export const useUserStore = defineStore(
       }
 
       findUser.value = user;
-      alert(findUser.value.email + "로 이메일을 전송하였습니다.");
+      alert(findUser.value.name + "님의 이메일(" + findUser.value.email + ")로 전송하였습니다.");
     };
+
+    const changePassword = (password) => {
+      findUser.value.password = password;
+
+      const tarUser = users.value.find((user) => user.email === findUser.value.email);
+      tarUser.password = password;
+
+      users.value = [...users.value, tarUser]
+      alert(findUser.value.name + "님의 비밀번호가 변경되었습니다.");
+
+    }
 
     return {
       users,
@@ -63,6 +74,7 @@ export const useUserStore = defineStore(
       login,
       signup,
       findEmail,
+      changePassword,
     };
   },
   {
