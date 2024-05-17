@@ -134,32 +134,33 @@
 </template>
 
 <script setup>
-import FindPwBanner from "@/components/login/FindPwBanner.vue";
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import { useUserStore } from "@/stores/user";
+import FindPwBanner from '@/components/login/FindPwBanner.vue';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { useUserStore } from '@/stores/user';
 
 const store = useUserStore();
 const router = useRouter();
 
-const userEmail = ref("");
-const userPassword = ref("");
-const userPasswordCheck = ref("");
+const userEmail = ref('');
+const userPassword = ref('');
+const userPasswordCheck = ref('');
 
-const errText = ref("");
+const errText = ref('');
 
 const backToLogin = () => {
-  router.push({ name: "home" });
+  store.findUser = null;
+  router.push({ name: 'home' });
 };
 
 const onSubmitEmail = () => {
-  if (userEmail.value.trim() === "") {
-    errText.value = "이메일을 입력해주세요.";
+  if (userEmail.value.trim() === '') {
+    errText.value = '이메일을 입력해주세요.';
     return;
   }
   try {
     store.findEmail(userEmail.value);
-    errText.value = "";
+    errText.value = '';
   } catch (e) {
     errText.value = e.message;
   }
@@ -167,18 +168,17 @@ const onSubmitEmail = () => {
 
 const onSubmitPassword = () => {
   if (
-    userPassword.value.trim() === "" ||
-    userPasswordCheck.value.trim() === ""
+    userPassword.value.trim() === '' ||
+    userPasswordCheck.value.trim() === ''
   ) {
-    errText.value = "비밀번호를 입력해주세요.";
+    errText.value = '비밀번호를 입력해주세요.';
     return;
   } else if (userPassword.value !== userPasswordCheck.value) {
-    errText.value = "비밀번호가 일치하지 않습니다.";
+    errText.value = '비밀번호가 일치하지 않습니다.';
     return;
   }
-
-  alert("비밀번호 변경이 완료되었습니다.");
-  router.push({ name: "home" });
+  store.changePassword(userPassword.value);
+  router.push({ name: 'home' });
 };
 
 const isPwVisible = ref(false);
