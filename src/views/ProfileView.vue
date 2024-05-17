@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center">
     <!-- container -->
     <div
-      class="w-[90%] flex flex-col gap-y-8 md:w-[50%] h-[700px] bg-blue-200 mt-32 p-10"
+      class="w-[90%] flex flex-col gap-y-8 md:w-[50%] h-[700px] shadow-xl rounded-md mt-20 p-10"
     >
       <!-- 유저 정보 -->
       <div class="flex items-center gap-x-4">
@@ -25,7 +25,7 @@
       </div>
 
       <!-- 이름 정보 수정 -->
-      <div class="bg-red-200 flex flex-col justify-center gap-y-2">
+      <div class="flex flex-col justify-center gap-y-2">
         <h1 class="text-2xl font-bold">이름</h1>
         <div class="flex gap-x-2 items-center" v-if="!canEditName">
           {{ store.loginUser.name }}
@@ -39,7 +39,7 @@
 
         <div class="flex gap-x-2 items-center" v-else>
           <input
-            class="w-fit border border-theme pl-2 rounded-md focus:outline-none"
+            class="w-fit border border-theme pl-2 text-sm rounded-md focus:outline-none"
             v-model="name"
           />
           <button
@@ -58,15 +58,18 @@
       </div>
 
       <!-- 찜한 상품   -->
-      <div class="bg-green-200 flex flex-col justify-center gap-y-2">
+      <div class="flex-1 flex flex-col justify-center gap-y-2">
         <h1 class="text-2xl font-bold">찜한 상품</h1>
 
-        <div>아이템</div>
+        <div class="h-[300px] overflow-scroll flex flex-col gap-y-2">
+          <LikedFinancialProduct v-for="item in 10" :key="item" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import LikedFinancialProduct from '@/components/profile/LikedFinancialProduct.vue';
 import { useUserStore } from '@/stores/user';
 import { ref } from 'vue';
 
