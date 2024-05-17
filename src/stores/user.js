@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 
 export const useUserStore = defineStore(
   "user",
@@ -22,6 +22,15 @@ export const useUserStore = defineStore(
     const isFoundUser = computed(() => {
       return findUser.value === null;
     });
+
+    watch(loginUser, (newUser, oldUser) => {
+      users.value = users.value.map((user) => {
+        if (user.id === newUser.id) {
+          return newUser;
+        }
+        return user;
+      });
+    })
 
     //action
     const login = (email, password) => {
@@ -56,14 +65,15 @@ export const useUserStore = defineStore(
     };
 
     const changePassword = (password) => {
-      findUser.value.password = password;
-
-      const tarUser = users.value.find((user) => user.email === findUser.value.email);
-      tarUser.password = password;
-
-      users.value = [...users.value, tarUser]
-      alert(findUser.value.name + "님의 비밀번호가 변경되었습니다.");
-
+      users.value = users.value.map((user) => {
+        if (user.id === findUser.value.id) {
+          user.password = password;
+          alert(user.name + "님의 비밀번호가 변경되었습니다.");
+          findUser.value = null;
+          return user;
+        }
+        return user;
+      });
     }
 
     const editLoginuserName = (name) => {
