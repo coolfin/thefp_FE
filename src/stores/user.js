@@ -66,6 +66,10 @@ export const useUserStore = defineStore(
 
     }
 
+    const editLoginuserName = (name) => {
+      loginUser.value.name = name;
+    }
+
     return {
       users,
       loginUser,
@@ -75,6 +79,7 @@ export const useUserStore = defineStore(
       signup,
       findEmail,
       changePassword,
+      editLoginuserName,
     };
   },
   {

@@ -82,22 +82,22 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 const moveInfo = () => {
-  router.push("/main/info");
+  router.push('/main/info');
 };
 
 const moveGithub = () => {
-  window.location.href = "https://github.com/coolfin/thefp_FE";
+  window.location.href = 'https://github.com/coolfin/thefp_FE';
 };
 
 const moveFigma = () => {
   window.location.href =
-    "https://www.figma.com/design/HGKRV1IGtHBIY2Q3r2VMkL/the-fp?node-id=0%3A1&t=D2xhlxwae9DEg7Bo-1";
+    'https://www.figma.com/design/HGKRV1IGtHBIY2Q3r2VMkL/the-fp?node-id=0%3A1&t=D2xhlxwae9DEg7Bo-1';
 };
 </script>
 <style scoped></style>
