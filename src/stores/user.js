@@ -23,7 +23,13 @@ export const useUserStore = defineStore(
       return findUser.value === null;
     });
 
+    const getLoginUser = computed(() => {
+      return loginUser.value;
+    });
+
+    // 내 프로필에서 이름 변경 시, 로그인한 유저의 이름도 변경
     watch(loginUser, (newUser, oldUser) => {
+      if (newUser === null) return;
       users.value = users.value.map((user) => {
         if (user.id === newUser.id) {
           return newUser;
@@ -44,6 +50,10 @@ export const useUserStore = defineStore(
       loginUser.value = user;
       alert(loginUser.value.name + "님 환영합니다.");
     };
+
+    const logout = () => {
+      loginUser.value = null;
+    }
 
     const signup = (user) => {
       users.value.map((userData) => {
@@ -84,8 +94,10 @@ export const useUserStore = defineStore(
       users,
       loginUser,
       findUser,
+      getLoginUser,
       isFoundUser,
       login,
+      logout,
       signup,
       findEmail,
       changePassword,

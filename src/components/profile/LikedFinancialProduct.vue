@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="h-[80px] flex items-center shrink-0 justify-center w-full px-2 cursor-pointer"
-  >
+  <div class="h-[80px] flex items-center shrink-0 justify-center w-full px-2">
     <!-- 은행명 -->
     <div class="flex items-center gap-x-2">
       <img
@@ -21,7 +19,7 @@
     <!-- 삭제버튼 -->
     <div
       @click="deleteLikedProduct"
-      class="bg-[#212922] flex items-center text-white text-sm px-4 py-1 rounded-md"
+      class="bg-[#212922] cursor-pointer flex items-center text-white text-sm px-4 py-1 rounded-md"
     >
       삭제
     </div>

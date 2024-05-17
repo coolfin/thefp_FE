@@ -18,9 +18,9 @@
         <!-- 환영메시지, 이메일 -->
         <div>
           <h1 class="font-bold text-2xl">
-            {{ store.loginUser.name }}님, 어서오세요 🖐
+            {{ store.loginUser?.name }}님, 어서오세요 🖐
           </h1>
-          <p class="text-lg">{{ store.loginUser.email }}</p>
+          <p class="text-lg">{{ store.loginUser?.email }}</p>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
       <div class="flex flex-col justify-center gap-y-2">
         <h1 class="text-2xl font-bold">이름</h1>
         <div class="flex gap-x-2 items-center" v-if="!canEditName">
-          {{ store.loginUser.name }}
+          {{ store.loginUser?.name }}
           <img
             @click="changeName"
             src="@/assets/icons/name-edit-icon.svg"
