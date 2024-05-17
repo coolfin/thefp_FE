@@ -3,11 +3,11 @@
     <LoginBanner />
 
     <!-- login -->
-    <div class="flex flex-col items-center justify-between flex-1 py-20">
+    <div class="flex flex-col items-center justify-between flex-1 py-10">
       <!-- logo -->
       <img
         src="@/assets/logo.png"
-        class="w-[180px] mx-auto mb-10 shadow-lg rounded-full"
+        class="w-[180px] mx-auto mb-4 shadow-lg rounded-full"
       />
 
       <!-- input container -->
@@ -16,9 +16,39 @@
       >
         <!-- simple input -->
         <form
-          @submit.prevent="onLogin"
+          @submit.prevent="onSubmit"
           class="w-[500px] flex flex-col font-bold gap-y-4 text-theme"
         >
+          <!-- 이름 -->
+          <div class="flex p-4 border rounded-lg border-theme">
+            <img
+              src="@/assets/icons/name-icon.svg"
+              alt="name-icon"
+              class="mr-4"
+            />
+            <input
+              type="text"
+              class="flex-1 font-normal focus:outline-none"
+              placeholder="이름 (또는 닉네임)"
+              v-model="signUpName"
+            />
+          </div>
+
+          <!-- 생년월일 -->
+          <div class="flex p-4 border rounded-lg border-theme">
+            <img
+              src="@/assets/icons/calendar-icon.svg"
+              alt="birth-icon"
+              class="mr-4"
+            />
+            <input
+              type="date"
+              class="flex-1 font-normal focus:outline-none"
+              placeholder="생년월일"
+              v-model="signUpBirth"
+            />
+          </div>
+
           <!-- 이메일 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
@@ -147,6 +177,16 @@
           <button type="submit" class="py-4 text-white rounded-lg bg-theme">
             회원가입
           </button>
+
+          <div class="flex items-center">
+            이미 회원이신가요?
+            <span
+              class="underline decoration-[#294936] cursor-pointer"
+              @click="clickLogin"
+            >
+              로그인
+            </span>
+          </div>
         </form>
       </div>
     </div>
@@ -154,12 +194,16 @@
 </template>
 
 <script setup>
-import LoginBanner from "@/components/login/LoginBanner.vue";
-import { ref } from "vue";
+import LoginBanner from '@/components/login/LoginBanner.vue';
+import { ref } from 'vue';
+import { useUserStore } from '@/stores/user';
 
-const signUpId = ref("");
-const signUpPw = ref("");
-const signUpPwCheck = ref("");
+const signUpId = ref('');
+const signUpPw = ref('');
+const signUpPwCheck = ref('');
+
+const signUpName = ref('');
+const signUpBirth = ref('');
 
 const isPwVisible = ref(false);
 const isPwCheckVisible = ref(false);
@@ -167,7 +211,9 @@ const isPwCheckVisible = ref(false);
 const isTermChecked = ref(false); // 이용약관 동의
 const isPersonalChecked = ref(false); // 개인정보 수집 및 이용 동의
 
-const errText = ref("");
+const errText = ref('');
+
+const store = useUserStore();
 
 const handleVisible = () => {
   isPwVisible.value = !isPwVisible.value;
@@ -178,45 +224,69 @@ const handleCheckVisible = () => {
 };
 
 const compareInput = () => {
+  if (!signUpName.value) {
+    errText.value = '이름을 입력해주세요.';
+    return false;
+  }
+  if (!signUpBirth.value) {
+    errText.value = '생년월일을 입력해주세요.';
+    return false;
+  }
   if (!signUpId.value) {
-    errText.value = "이메일을 입력해주세요.";
+    errText.value = '이메일을 입력해주세요.';
     return false;
   } else {
     const emailRegExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (!emailRegExp.test(signUpId.value)) {
-      errText.value = "이메일 형식이 올바르지 않습니다.";
+      errText.value = '이메일 형식이 올바르지 않습니다.';
       return false;
     }
   }
 
   if (!signUpPw.value) {
-    errText.value = "비밀번호를 입력해주세요.";
+    errText.value = '비밀번호를 입력해주세요.';
     return false;
   }
   if (signUpPw.value !== signUpPwCheck.value) {
-    errText.value = "비밀번호가 일치하지 않습니다.";
+    errText.value = '비밀번호가 일치하지 않습니다.';
     return false;
   }
 
   if (!isTermChecked.value || !isPersonalChecked.value) {
-    errText.value = "필수 약관에 모두 동의해주세요.";
+    errText.value = '필수 약관에 모두 동의해주세요.';
     return false;
   }
 
-  errText.value = "";
+  errText.value = '';
   return true;
 };
 
 //temp router
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 const router = useRouter();
-const onLogin = () => {
+const onSubmit = () => {
   if (!compareInput()) {
     return;
   }
-  alert("admin님, 회원가입이 완료되었습니다.");
-  router.push("/main");
+
+  const user = {
+    name: signUpName.value,
+    birth: signUpBirth.value,
+    email: signUpId.value,
+    password: signUpPw.value,
+  };
+  try {
+    store.signup(user);
+  } catch (e) {
+    errText.value = e.message;
+    return;
+  }
+  router.push('/');
+};
+
+const clickLogin = () => {
+  router.push({ name: 'home' });
 };
 </script>
 

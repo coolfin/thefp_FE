@@ -14,33 +14,64 @@ const router = createRouter({
       component: () => import("@/views/SignupView.vue"),
     },
     {
-      path: '/main',
-      name: 'main',
-      component: () => import('@/views/MainView.vue'),
-      redirect: { name: 'info' },
+      path: "/findpw",
+      name: "password-find",
+      component: () => import("@/views/PasswordFindView.vue"),
+    },
+    {
+      path: "/main",
+      name: "main",
+      component: () => import("@/views/MainView.vue"),
+      redirect: { name: "info" },
       children: [
         {
-          path: 'info',
-          name: 'info',
-          component: () => import('@/views/InfoView.vue')
+          path: "info",
+          name: "info",
+          component: () => import("@/views/InfoView.vue"),
         },
         {
-          path: 'exchange',
-          name: 'exchange',
-          component: () => import('@/views/ExchangeView.vue')
-        }
-      ]
+          path: "exchange",
+          name: "exchange",
+          component: () => import("@/views/ExchangeView.vue"),
+        },
+        {
+          path: "profile",
+          name: "profile",
+          component: () => import("@/views/ProfileView.vue"),
+        },
+
+      ],
     },
     {
-      path: '/404',
-      name: '404',
-      component: () => import('@/views/NotFoundView.vue')
+      path: "/404",
+      name: "404",
+      component: () => import("@/views/NotFoundView.vue"),
     },
     {
-      path: '/:pathMatch(.*)*',
-      redirect: { name: '404' }
-    }
+      path: "/:pathMatch(.*)*",
+      redirect: { name: "404" },
+    },
   ],
 });
 
+import { useUserStore } from "@/stores/user";
+router.beforeEach((to, from, next) => {
+  const store = useUserStore();
+  if (
+    !store.getLoginUser &&
+    to.name !== "home" &&
+    to.name !== "signup" &&
+    to.name !== "password-find"
+  ) {
+    alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+    next({ name: "home" });
+  } else if (
+    store.getLoginUser &&
+    (to.name === "home" || to.name === "signup" || to.name === "password-find")
+  ) {
+    next({ name: "info" });
+  } else {
+    next();
+  }
+});
 export default router;
