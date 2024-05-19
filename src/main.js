@@ -17,6 +17,7 @@ app.use(pinia);
 app.use(router);
 app.use(createNaverMap, {
   clientId: import.meta.env.VITE_NAVER_MAPS_CLIENT_ID,
+  category: "ncp",
   subModules: ["geocoder"],
 });
 
