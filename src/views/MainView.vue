@@ -12,8 +12,9 @@
 
       <RouterLink :to="{ name: 'info' }" class="font-bold">상품정보</RouterLink>
       <RouterLink :to="{ name: 'exchange' }" class="font-bold">환율</RouterLink>
+      <RouterLink :to="{ name: 'maps' }" class="font-bold">주변은행</RouterLink>
 
-      <div class="relative flex items-center justify-end pr-4 flex-1 text-sm">
+      <div class="relative flex items-center justify-end flex-1 pr-4 text-sm">
         <img
           @click="isModalOpen = !isModalOpen"
           src="@/assets/icons/profile-icon.svg"
@@ -87,10 +88,10 @@
   </div>
 </template>
 <script setup>
-import { useUserStore } from '@/stores/user';
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-import UserModal from '@/components/UserModal.vue';
+import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+import UserModal from "@/components/UserModal.vue";
 
 const store = useUserStore();
 const router = useRouter();
@@ -98,16 +99,16 @@ const router = useRouter();
 const isModalOpen = ref(false);
 
 const moveInfo = () => {
-  router.push('/main/info');
+  router.push("/main/info");
 };
 
 const moveGithub = () => {
-  window.location.href = 'https://github.com/coolfin/thefp_FE';
+  window.location.href = "https://github.com/coolfin/thefp_FE";
 };
 
 const moveFigma = () => {
   window.location.href =
-    'https://www.figma.com/design/HGKRV1IGtHBIY2Q3r2VMkL/the-fp?node-id=0%3A1&t=D2xhlxwae9DEg7Bo-1';
+    "https://www.figma.com/design/HGKRV1IGtHBIY2Q3r2VMkL/the-fp?node-id=0%3A1&t=D2xhlxwae9DEg7Bo-1";
 };
 
 const changeIsModalOpen = () => {
