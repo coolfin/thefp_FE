@@ -39,7 +39,7 @@
           class="p-1 rounded-full bg-white border-2 border-[#317b22]"
           @click="clickBank(bank)"
         >
-          <img :src="bank.image" class="rounded-full w-8 h-8" />
+          <img :src="bank.image" class="w-8 h-8 rounded-full" />
         </div>
       </naver-marker>
     </naver-map>
@@ -47,14 +47,14 @@
 </template>
 
 <script setup>
-import LocationBtn from '@/components/LocationBtn.vue';
-import { ref } from 'vue';
-import { NaverMap, NaverMarker, NaverInfoWindow } from 'vue3-naver-maps';
-import { useBankStore } from '@/stores/bank';
+import LocationBtn from "@/components/LocationBtn.vue";
+import { ref } from "vue";
+import { NaverMap, NaverMarker, NaverInfoWindow } from "vue3-naver-maps";
+import { useBankStore } from "@/stores/bank";
 
 const store = useBankStore();
 
-const text = ref('');
+const text = ref("");
 const markerPosition = ref({
   lat: 37.501392,
   lng: 127.039587,
@@ -69,7 +69,7 @@ const mapOptions = {
 
 const morphOption = {
   duration: 300,
-  easing: 'easeOutCubic',
+  easing: "easeOutCubic",
 };
 
 const onLoadMap = (naverMap) => {
@@ -87,14 +87,14 @@ const changePosition = async () => {
     //주소를 좌표로 변환
     naver.maps.Service.geocode({ address: text.value }, (status, response) => {
       if (status === naver.maps.Service.Status.ERROR) {
-        alert('주소를 찾을 수 없습니다.');
+        alert("주소를 찾을 수 없습니다.");
         reject();
         return;
       }
 
       const result = response.v2.addresses[0];
       if (response.result.total === 0) {
-        alert('주소를 찾을 수 없습니다.');
+        alert("주소를 찾을 수 없습니다.");
         reject();
         return;
       }
@@ -106,15 +106,15 @@ const changePosition = async () => {
 
       resolve();
     });
-    text.value = '';
+    text.value = "";
   });
 };
 
 const clickBank = (bank) => {
   alert(
-    '📌위치 정보를 알려드려요!\n은행명 : ' +
+    "📌위치 정보를 알려드려요!\n장소 : " +
       bank.name +
-      '\n주소 : ' +
+      "\n주소 : " +
       bank.address
   );
 };
