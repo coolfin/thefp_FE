@@ -38,12 +38,15 @@
 </template>
 <script setup>
 import RecoomendTag from "@/components/info/RecoomendTag.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 defineProps({
   product: Object,
 });
 
 const clickRecommendProduct = () => {
-  alert("죄송합니다. 상품 상세 페이지는 준비 중입니다.🤐");
+  router.push({ name: "info-detail", params: { id: props.item.id } });
 };
 </script>
 <style scoped></style>
