@@ -41,12 +41,12 @@ import RecoomendTag from "@/components/info/RecoomendTag.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-defineProps({
+const props = defineProps({
   product: Object,
 });
 
 const clickRecommendProduct = () => {
-  router.push({ name: "info-detail", params: { id: props.item.id } });
+  router.push({ name: "info-detail", params: { id: props.product.id } });
 };
 </script>
 <style scoped></style>
