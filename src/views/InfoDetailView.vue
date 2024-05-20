@@ -80,23 +80,42 @@
       </div>
 
       <!-- 기간 별 금리비교 container -->
-      <div class="flex flex-col justify-center pl-2 gap-y-2">
+      <div class="flex flex-col justify-center gap-y-4">
         <h2 class="text-2xl font-bold">
           상품의 가입기간 별 금리를 비교해 보세요
         </h2>
 
-        <div>
+        <div class="flex-1">
           <!-- 기간 별 금리 비교 -->
-          <header class="py-4 border-b border-[#eee]">
-            <IntrPeriodBtn
-              v-for="option in productItem.options"
-              :key="option.id"
-              :option="option"
-            />
+          <header class="flex">
+            <div class="w-1/6 border-b border-[#eee]"></div>
+            <div class="flex items-center overflow-scroll">
+              <IntrPeriodBtn
+                v-for="option in productItem.options"
+                :key="option.id"
+                :option="option"
+                @click="clickOption"
+                :class="{
+                  '!bg-white !text-theme !border-x-theme !border-t-theme border !border-b-white':
+                    curOpt === option,
+                }"
+              />
+            </div>
+
+            <div class="w-1/6 border-b border-[#eee]"></div>
           </header>
 
           <!-- 금리 값 출력 컨테이너 -->
-          <div></div>
+          <div class="flex flex-col items-center justify-center py-20 gap-y-2">
+            <h2 class="text-3xl font-bold">금리 {{ curOpt.intr_rate2 }}%</h2>
+            <p v-if="productItem.product.spcl_cnd !== '해당사항 없음'">
+              우대조건이 없어요 😢
+            </p>
+            <div class="flex flex-col items-center justify-center" v-else>
+              <p>기본 {{ curOpt.intr_rate }}%</p>
+              <p>우대 {{ curOpt.intr_rate2 }}%</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -115,6 +134,12 @@ const store = useFpStore();
 
 const productId = ref(route.params.id);
 const productItem = ref(store.getDetailProduct(productId.value));
+
+const curOpt = ref(productItem.value.options[0]);
+
+const clickOption = (option) => {
+  curOpt.value = option;
+};
 </script>
 
 <style scoped></style>
