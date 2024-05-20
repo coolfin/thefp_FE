@@ -39,7 +39,11 @@ const router = createRouter({
           name: "profile",
           component: () => import("@/views/ProfileView.vue"),
         },
-
+        {
+          path: "maps",
+          name: "maps",
+          component: () => import("@/views/BankMapView.vue"),
+        },
       ],
     },
     {
