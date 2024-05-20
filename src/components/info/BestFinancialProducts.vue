@@ -22,7 +22,7 @@ import { onMounted } from "vue";
 const store = useFpStore();
 
 onMounted(() => {
-  store.getRecommendProducts();
+  store.setRecommendProducts();
 });
 </script>
 <style scoped></style>

@@ -38,13 +38,17 @@
 </template>
 
 <script setup>
-const clickFinancialProduct = () => {
-  alert("죄송합니다. 상품 상세 페이지는 준비 중입니다.🤐");
-};
+import { useRouter } from "vue-router";
 
-defineProps({
+const router = useRouter();
+
+const props = defineProps({
   item: Object,
 });
+
+const clickFinancialProduct = () => {
+  router.push({ name: "info-detail", params: { id: props.item.id } });
+};
 </script>
 
 <style scoped></style>
