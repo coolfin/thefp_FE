@@ -52,6 +52,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.1,
           save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/gookmin-logo.svg",
         },
         {
           kor_co_nm: "우리은행",
@@ -59,6 +60,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 1.5,
           save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/woori-logo.svg",
         },
         {
           kor_co_nm: "신한은행",
@@ -66,6 +68,49 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 1.2,
           save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/shinhan-logo.svg",
+        },
+
+        {
+          kor_co_nm: "하나은행",
+          fin_prdt_nm:
+            "하나 첫째적금인데 이름을 엄청나게 늘려서 잘리는지 확인을 해볼게요",
+          intr_rate_type_nm: "단리",
+          intr_rate2: 2.5,
+          save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/hana-logo.svg",
+        },
+        {
+          kor_co_nm: "농협은행",
+          fin_prdt_nm: "프리미엄 적금",
+          intr_rate_type_nm: "단리",
+          intr_rate2: 2.3,
+          save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/nh-logo.svg",
+        },
+        {
+          kor_co_nm: "국민은행",
+          fin_prdt_nm: "스무살 우리 적금",
+          intr_rate_type_nm: "단리",
+          intr_rate2: 2.1,
+          save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/gookmin-logo.svg",
+        },
+        {
+          kor_co_nm: "우리은행",
+          fin_prdt_nm: "나무적금",
+          intr_rate_type_nm: "단리",
+          intr_rate2: 1.5,
+          save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/woori-logo.svg",
+        },
+        {
+          kor_co_nm: "신한은행",
+          fin_prdt_nm: "e-통장",
+          intr_rate_type_nm: "단리",
+          intr_rate2: 1.2,
+          save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/shinhan-logo.svg",
         },
 
         {
@@ -74,6 +119,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.5,
           save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/hana-logo.svg",
         },
         {
           kor_co_nm: "농협은행",
@@ -81,6 +127,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.3,
           save_trm: 12,
+          imageUrl: "/src/assets/icons/banks/nh-logo.svg",
         },
       ],
     };
