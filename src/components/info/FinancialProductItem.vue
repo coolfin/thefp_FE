@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative shrink-0">
     <div
       v-if="item === 2"
       class="absolute top-0 left-0 z-10 w-full h-full bg-opacity-80 bg-[#333] flex items-center justify-center rounded-lg"
@@ -13,10 +13,10 @@
       <div class="flex items-center w-2/12 gap-x-4">
         <img
           class="w-10 rounded-lg"
-          src="@/assets/icons/banks/nh-logo.svg"
-          alt="농협은행"
+          :src="item.imageUrl"
+          alt="bank-logo-image"
         />
-        <span>농협은행</span>
+        <span>{{ item.kor_co_nm }}</span>
       </div>
 
       <div class="w-1/12">
@@ -27,21 +27,28 @@
         </div>
       </div>
 
-      <div class="w-3/12 truncate">상품명입니다</div>
+      <div class="w-3/12 pr-2 truncate">{{ item.fin_prdt_nm }}</div>
 
-      <div class="flex-1">2.1%</div>
+      <div class="flex justify-between flex-1">
+        <span class="w-1/3">{{ item.intr_rate2 }}%</span>
+        <span class="flex-1">{{ item.save_trm }}개월</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-const clickFinancialProduct = () => {
-  alert("죄송합니다. 상품 상세 페이지는 준비 중입니다.🤐");
-};
+import { useRouter } from "vue-router";
 
-defineProps({
+const router = useRouter();
+
+const props = defineProps({
   item: Object,
 });
+
+const clickFinancialProduct = () => {
+  router.push({ name: "info-detail", params: { id: props.item.id } });
+};
 </script>
 
 <style scoped></style>
