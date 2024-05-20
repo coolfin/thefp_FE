@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute z-10 top-12">
+  <div class="absolute z-10 bg-white top-12">
     <div class="shadow-lg rounded-md py-2 px-6 w-[200px]">
       <!-- 정보 -->
       <div class="border-b border-[#ccc] pb-2">
