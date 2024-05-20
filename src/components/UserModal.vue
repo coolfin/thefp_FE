@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute top-12">
+  <div class="absolute z-10 bg-white top-12">
     <div class="shadow-lg rounded-md py-2 px-6 w-[200px]">
       <!-- 정보 -->
       <div class="border-b border-[#ccc] pb-2">
@@ -8,7 +8,7 @@
       </div>
 
       <!-- 바로가기 -->
-      <div class="pt-2 flex flex-col gap-y-1">
+      <div class="flex flex-col pt-2 gap-y-1">
         <h1 class="font-bold">바로가기</h1>
 
         <!-- 내 프로필 -->
@@ -41,8 +41,8 @@
   </div>
 </template>
 <script setup>
-import { useUserStore } from '@/stores/user';
-import { useRouter } from 'vue-router';
+import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   changeIsModalOpen: Function,
@@ -53,13 +53,13 @@ const store = useUserStore();
 
 const moveProfile = () => {
   props.changeIsModalOpen();
-  router.push({ name: 'profile' });
+  router.push({ name: "profile" });
 };
 
 const logout = () => {
   store.logout();
   props.changeIsModalOpen();
-  router.push({ name: 'home' });
+  router.push({ name: "home" });
 };
 </script>
 <style scoped></style>

@@ -8,16 +8,26 @@
 
       <span class="w-3/12">상품명</span>
 
-      <span class="flex-1 text-start">금리</span>
+      <span class="flex flex-1 text-start">
+        <span class="w-1/3">금리</span>
+        <span class="flex-1">저축기간</span>
+      </span>
     </div>
 
     <!-- data -->
-    <div class="flex flex-col gap-y-1">
-      <FinancialProductItem v-for="item in 3" :key="item" :item="item" />
+    <div class="flex flex-col h-[500px] overflow-y-scroll gap-y-1">
+      <FinancialProductItem
+        v-for="item in store.products.display"
+        :key="item"
+        :item="item"
+      />
     </div>
   </div>
 </template>
 <script setup>
+import { useFpStore } from "@/stores/fp";
 import FinancialProductItem from "@/components/info/FinancialProductItem.vue";
+
+const store = useFpStore();
 </script>
 <style scoped></style>

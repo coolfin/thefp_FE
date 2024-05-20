@@ -1,7 +1,11 @@
 <template>
-  <button class="text-xs bg-theme text-white font-bold py-2 px-6 rounded-full">
-    tag
+  <button class="px-6 py-2 text-xs font-bold text-white rounded-full bg-theme">
+    {{ tag }}
   </button>
 </template>
-<script setup></script>
+<script setup>
+defineProps({
+  tag: String,
+});
+</script>
 <style scoped></style>

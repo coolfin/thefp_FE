@@ -148,7 +148,7 @@
                 이용약관 동의 (필수)
               </label>
               <a
-                href="https://coolfin.notion.site/75fccd0924d54c52ae9599698efd8cc7?pvs=4"
+                href="https://coolfin.notion.site/e552e5071f59460fa924de1f0ed26d0a?pvs=4"
                 target="_blank"
                 class="text-sm font-normal underline cursor-pointer hover:opacity-70 decoration-theme"
               >
@@ -166,7 +166,7 @@
                 개인정보 수집 및 이용 동의 (필수)
               </label>
               <a
-                href="https://coolfin.notion.site/e552e5071f59460fa924de1f0ed26d0a?pvs=4"
+                href="https://coolfin.notion.site/75fccd0924d54c52ae9599698efd8cc7?pvs=4"
                 target="_blank"
                 class="text-sm font-normal underline cursor-pointer hover:opacity-70 decoration-theme"
               >
@@ -194,16 +194,16 @@
 </template>
 
 <script setup>
-import LoginBanner from '@/components/login/LoginBanner.vue';
-import { ref } from 'vue';
-import { useUserStore } from '@/stores/user';
+import LoginBanner from "@/components/login/LoginBanner.vue";
+import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
 
-const signUpId = ref('');
-const signUpPw = ref('');
-const signUpPwCheck = ref('');
+const signUpId = ref("");
+const signUpPw = ref("");
+const signUpPwCheck = ref("");
 
-const signUpName = ref('');
-const signUpBirth = ref('');
+const signUpName = ref("");
+const signUpBirth = ref("");
 
 const isPwVisible = ref(false);
 const isPwCheckVisible = ref(false);
@@ -211,7 +211,7 @@ const isPwCheckVisible = ref(false);
 const isTermChecked = ref(false); // 이용약관 동의
 const isPersonalChecked = ref(false); // 개인정보 수집 및 이용 동의
 
-const errText = ref('');
+const errText = ref("");
 
 const store = useUserStore();
 
@@ -225,45 +225,45 @@ const handleCheckVisible = () => {
 
 const compareInput = () => {
   if (!signUpName.value) {
-    errText.value = '이름을 입력해주세요.';
+    errText.value = "이름을 입력해주세요.";
     return false;
   }
   if (!signUpBirth.value) {
-    errText.value = '생년월일을 입력해주세요.';
+    errText.value = "생년월일을 입력해주세요.";
     return false;
   }
   if (!signUpId.value) {
-    errText.value = '이메일을 입력해주세요.';
+    errText.value = "이메일을 입력해주세요.";
     return false;
   } else {
     const emailRegExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (!emailRegExp.test(signUpId.value)) {
-      errText.value = '이메일 형식이 올바르지 않습니다.';
+      errText.value = "이메일 형식이 올바르지 않습니다.";
       return false;
     }
   }
 
   if (!signUpPw.value) {
-    errText.value = '비밀번호를 입력해주세요.';
+    errText.value = "비밀번호를 입력해주세요.";
     return false;
   }
   if (signUpPw.value !== signUpPwCheck.value) {
-    errText.value = '비밀번호가 일치하지 않습니다.';
+    errText.value = "비밀번호가 일치하지 않습니다.";
     return false;
   }
 
   if (!isTermChecked.value || !isPersonalChecked.value) {
-    errText.value = '필수 약관에 모두 동의해주세요.';
+    errText.value = "필수 약관에 모두 동의해주세요.";
     return false;
   }
 
-  errText.value = '';
+  errText.value = "";
   return true;
 };
 
 //temp router
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 const router = useRouter();
 const onSubmit = () => {
   if (!compareInput()) {
@@ -282,11 +282,11 @@ const onSubmit = () => {
     errText.value = e.message;
     return;
   }
-  router.push('/');
+  router.push("/");
 };
 
 const clickLogin = () => {
-  router.push({ name: 'home' });
+  router.push({ name: "home" });
 };
 </script>
 
