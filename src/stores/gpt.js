@@ -9,10 +9,10 @@ export const useGptStore = defineStore(
     const isLoadingGpt = ref(false);
 
     const getChat = computed(() => chat.value);
-    const getIsLoadingGpt = computed(() => isLoadingGpt.value);
 
     const sendMessage = async (text) => {
-      chat.value.push({ text, type: "user" });
+      chat.value.push({ text, type: "user", isLoading: false });
+      chat.value.push({ text: "Thinking...", type: "oper", isLoading: true });
 
       const openai = new OpenAI({
         apiKey: import.meta.env.VITE_GPT_API_KEY,
@@ -38,7 +38,11 @@ export const useGptStore = defineStore(
           top_p: 0.9,
         });
 
-        chat.value.push({ text: res.choices[0].message.content, type: "oper" });
+        chat.value[chat.value.length - 1] = {
+          text: res.choices[0].message.content,
+          type: "oper",
+          isLoading: false,
+        };
 
         //아래로 스크롤
       } catch (error) {
@@ -50,7 +54,6 @@ export const useGptStore = defineStore(
       chat,
       isLoadingGpt,
       getChat,
-      getIsLoadingGpt,
       sendMessage,
     };
   },

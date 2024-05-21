@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center mb-4 gap-x-2" ref="container">
+  <div class="flex mb-4 gap-x-2" ref="container">
     <div
       class="w-10 h-10 overflow-hidden bg-white border-2 border-white rounded-full shrink-0"
     >
@@ -11,11 +11,11 @@
     </div>
     <div
       class="max-w-full px-4 py-2 text-sm bg-white rounded-lg text-theme"
-      v-if="store.getIsLoadingGpt"
+      v-if="item.isLoading === false"
     >
       {{ text }}
     </div>
-    <div v-else>
+    <div v-else class="flex items-center justify-center">
       <svg
         aria-hidden="true"
         class="w-8 h-8 text-gray-300 animate-spin fill-[#294936]"
@@ -43,8 +43,13 @@ import { watch, ref } from "vue";
 const container = ref(null);
 const store = useGptStore();
 
+watch(store.getChat, () => {
+  container.value.scrollIntoView({ behavior: "smooth" }, false);
+});
+
 defineProps({
   text: String,
+  item: Object,
 });
 </script>
 

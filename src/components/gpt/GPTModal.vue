@@ -19,10 +19,10 @@
         <!-- type이 oper이면 operChat, my이면 myChat -->
         <div v-for="item in store.getChat" :key="item.text">
           <template v-if="item.type === 'oper'">
-            <operChat :text="item.text" />
+            <operChat :text="item.text" :item="item" />
           </template>
           <template v-else>
-            <myChat :text="item.text" />
+            <myChat :text="item.text" :item="item" />
           </template>
         </div>
       </div>
