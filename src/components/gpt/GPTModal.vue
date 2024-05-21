@@ -17,7 +17,7 @@
       </header>
       <div class="flex-1 w-full p-4 overflow-scroll bg-white bg-opacity-90">
         <!-- type이 oper이면 operChat, my이면 myChat -->
-        <div v-for="item in dummyText" :key="item.text">
+        <div v-for="item in store.getChat" :key="item.text">
           <template v-if="item.type === 'oper'">
             <operChat :text="item.text" />
           </template>
@@ -26,17 +26,22 @@
           </template>
         </div>
       </div>
-      <footer class="h-[50px] flex px-4 text-theme items-center">
+      <form
+        @submit.prevent="onSubmitMsg"
+        class="h-[50px] flex px-4 text-theme items-center"
+      >
         <input
           class="w-full text-sm text-white bg-transparent focus:outline-none"
           v-model="gptText"
         />
-        <img
-          src="@/assets/icons/msg-send-icon.svg"
-          alt="send-icon"
-          class="w-6 h-6"
-        />
-      </footer>
+        <button type="submit">
+          <img
+            src="@/assets/icons/msg-send-icon.svg"
+            alt="send-icon"
+            class="w-6 h-6"
+          />
+        </button>
+      </form>
     </div>
 
     <div class="flex items-center justify-end pt-4">
@@ -57,52 +62,22 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 import myChat from "@/components/gpt/myChat.vue";
 import operChat from "@/components/gpt/operChat.vue";
 
+import { useGptStore } from "@/stores/gpt";
+
 const isModalShow = ref(false);
 const gptText = ref("");
 
-const dummyText = ref([
-  {
-    type: "oper",
-    text: "안녕하세요. 무엇을 도와드릴까요?",
-  },
-  {
-    type: "my",
-    text: "안녕하세요. 금리가 궁금한데요.",
-  },
-  {
-    type: "oper",
-    text: "안녕하세요. 금리가 궁금하시군요.",
-  },
-  {
-    type: "my",
-    text: "네 맞아요.",
-  },
-  {
-    type: "oper",
-    text: "알겠습니다. 금리는 1.5%입니다.",
-  },
-  {
-    type: "my",
-    text: "안녕하세요. 금리가 궁금한데요.",
-  },
-  {
-    type: "oper",
-    text: "안녕하세요. 금리가 궁금하시군요.",
-  },
-  {
-    type: "my",
-    text: "네 맞아요.",
-  },
-  {
-    type: "oper",
-    text: "알겠습니다. 금리는 1.5%입니다.",
-  },
-]);
+const store = useGptStore();
+
+const onSubmitMsg = () => {
+  store.sendMessage(gptText.value);
+  gptText.value = "";
+};
 </script>
 
 <style scoped></style>

@@ -1,6 +1,8 @@
 <template>
   <div class="flex justify-end w-full mb-4 gap-x-2">
-    <div class="p-2 text-sm text-white rounded-lg max-w-full bg-[#3e6259]">
+    <div
+      class="py-2 px-4 text-sm text-white rounded-lg max-w-full bg-[#3e6259]"
+    >
       {{ text }}
     </div>
     <div

@@ -9,7 +9,7 @@
         class="object-cover w-[150%] h-[150%]"
       />
     </div>
-    <div class="p-2 text-sm bg-white rounded-lg text-theme">
+    <div class="max-w-full px-4 py-2 text-sm bg-white rounded-lg text-theme">
       {{ text }}
     </div>
   </div>
