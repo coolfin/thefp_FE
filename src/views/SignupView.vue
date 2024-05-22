@@ -12,7 +12,7 @@
 
       <!-- input container -->
       <div
-        class="flex flex-col items-center justify-start flex-1 py-14 gap-y-4"
+        class="flex flex-col items-center justify-start flex-1 2xl:py-14 gap-y-4"
       >
         <!-- simple input -->
         <form

@@ -1,5 +1,7 @@
 <template>
-  <button class="px-6 py-2 text-xs font-bold text-white rounded-full bg-theme">
+  <button
+    class="px-2 py-2 text-xs font-bold text-white rounded-full 2xl:px-6 2xl:text-xs bg-theme"
+  >
     {{ tag }}
   </button>
 </template>
