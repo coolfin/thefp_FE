@@ -118,6 +118,8 @@
           </div>
         </div>
       </div>
+
+      <ReviewContainer />
     </div>
   </div>
 </template>
@@ -128,6 +130,7 @@ import { useRoute } from "vue-router";
 import { useFpStore } from "@/stores/fp";
 
 import IntrPeriodBtn from "@/components/info/detail/IntrPeriodBtn.vue";
+import ReviewContainer from "@/components/info/detail/ReviewContainer.vue";
 
 const route = useRoute();
 const store = useFpStore();

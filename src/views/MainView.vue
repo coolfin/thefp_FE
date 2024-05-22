@@ -86,12 +86,15 @@
       </div>
     </footer>
   </div>
+
+  <GPTModal />
 </template>
 <script setup>
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import UserModal from "@/components/UserModal.vue";
+import GPTModal from "@/components/gpt/GPTModal.vue";
 
 const store = useUserStore();
 const router = useRouter();
