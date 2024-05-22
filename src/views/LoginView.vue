@@ -4,7 +4,9 @@
     <LoginBanner />
 
     <!-- login -->
-    <div class="flex flex-col items-center justify-between flex-1 py-20">
+    <div
+      class="flex flex-col items-center justify-between flex-1 bg-white 2xl:py-20"
+    >
       <!-- logo -->
       <img
         src="/assets/logo.png"
@@ -95,15 +97,15 @@
           <img src="/assets/google-logo.png" class="w-6 h-6 mr-2" />
           구글로 로그인
         </button>
-      </div>
 
-      <div class="flex flex-col items-center justify-center font-bold">
-        <p>아직 계정이 없으세요?</p>
-        <RouterLink
-          :to="{ name: 'signup' }"
-          class="underline decoration-[#294936] text-theme cursor-pointer"
-          >회원가입</RouterLink
-        >
+        <div class="flex flex-col items-center justify-center font-bold">
+          <p>아직 계정이 없으세요?</p>
+          <RouterLink
+            :to="{ name: 'signup' }"
+            class="underline decoration-[#294936] text-theme cursor-pointer"
+            >회원가입</RouterLink
+          >
+        </div>
       </div>
     </div>
   </div>

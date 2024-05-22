@@ -17,7 +17,7 @@
         <img
           alt="bank-logo"
           class="w-[100px] h-[100px]"
-          :src="productItem.product.imageUrl"
+          :src="store.getDetailImage"
         />
         <div class="flex flex-col justify-center pl-2">
           <!-- 금융회사명 -->

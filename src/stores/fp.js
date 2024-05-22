@@ -218,7 +218,7 @@ export const useFpStore = defineStore(
         },
       ],
     };
-    const detailProduct = ref(dummyDetailData);
+    const detailProduct = ref({});
 
     //상세조회 페이지 getter
 
@@ -243,9 +243,17 @@ export const useFpStore = defineStore(
       return info;
     });
 
+    const getDetailImage = computed(() => {
+      return detailProduct.value.product.imageUrl;
+    });
+
     //action
     const setRecommendProducts = () => {
       products.value = dummyData;
+    };
+
+    const setDetailProducts = () => {
+      detailProduct.value = dummyDetailData;
     };
 
     const getDetailProduct = (id) => {
@@ -261,7 +269,9 @@ export const useFpStore = defineStore(
       products,
       detailProduct,
       setRecommendProducts,
+      setDetailProducts,
       getDetailProduct,
+      getDetailImage,
       getHighestRate,
       getNormalRate,
       getDetailProductInfo,
