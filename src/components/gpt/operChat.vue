@@ -4,7 +4,7 @@
       class="w-10 h-10 overflow-hidden bg-white border-2 border-white rounded-full shrink-0"
     >
       <img
-        src="@/assets/icons/gpt.svg"
+        src="/assets/icons/gpt.svg"
         alt="gpt-chatbot-icon"
         class="object-cover w-[150%] h-[150%]"
       />

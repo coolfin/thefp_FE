@@ -6,7 +6,7 @@
     <div class="flex flex-col items-center justify-between flex-1 py-10">
       <!-- logo -->
       <img
-        src="@/assets/logo.png"
+        src="/assets/logo.png"
         class="w-[180px] mx-auto mb-4 shadow-lg rounded-full"
       />
 
@@ -22,7 +22,7 @@
           <!-- 이름 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/name-icon.svg"
+              src="/assets/icons/name-icon.svg"
               alt="name-icon"
               class="mr-4"
             />
@@ -37,7 +37,7 @@
           <!-- 생년월일 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/calendar-icon.svg"
+              src="/assets/icons/calendar-icon.svg"
               alt="birth-icon"
               class="mr-4"
             />
@@ -52,7 +52,7 @@
           <!-- 이메일 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-id-icon.svg"
+              src="/assets/icons/input-id-icon.svg"
               alt="id-icon"
               class="mr-4"
             />
@@ -67,7 +67,7 @@
           <!-- 비밀번호 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-pw-icon.svg"
+              src="/assets/icons/input-pw-icon.svg"
               alt="pw-icon"
               class="mr-4"
             />
@@ -85,13 +85,13 @@
             >
               <img
                 v-if="isPwVisible"
-                src="@/assets/icons/visible-off-icon.svg"
+                src="/assets/icons/visible-off-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
               <img
                 v-else
-                src="@/assets/icons/visible-icon.svg"
+                src="/assets/icons/visible-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
@@ -101,7 +101,7 @@
           <!-- 비밀번호 확인 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-pw-icon.svg"
+              src="/assets/icons/input-pw-icon.svg"
               alt="pw-icon"
               class="mr-4"
             />
@@ -119,13 +119,13 @@
             >
               <img
                 v-if="isPwCheckVisible"
-                src="@/assets/icons/visible-off-icon.svg"
+                src="/assets/icons/visible-off-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
               <img
                 v-else
-                src="@/assets/icons/visible-icon.svg"
+                src="/assets/icons/visible-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />

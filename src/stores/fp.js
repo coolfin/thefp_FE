@@ -16,7 +16,7 @@ export const useFpStore = defineStore(
           save_trm: 12,
           text: "가장 높은 최고우대금리를 가진 상품이에요📈",
           tags: ["적금", "1금융권"],
-          imageUrl: "@/assets/icons/banks/gookmin-logo.svg",
+          imageUrl: "/assets/icons/banks/gookmin-logo.svg",
         },
 
         {
@@ -28,7 +28,7 @@ export const useFpStore = defineStore(
           save_trm: 12,
           text: "가장 많은 사람들이 찾았어요! 🥳",
           tags: ["적금", "1금융권"],
-          imageUrl: "@/assets/icons/banks/woori-logo.svg",
+          imageUrl: "/assets/icons/banks/woori-logo.svg",
         },
 
         {
@@ -40,7 +40,7 @@ export const useFpStore = defineStore(
           save_trm: 12,
           text: "저축기간이 가장 짧아요! 🏃",
           tags: ["적금", "1금융권"],
-          imageUrl: "@/assets/icons/banks/shinhan-logo.svg",
+          imageUrl: "/assets/icons/banks/shinhan-logo.svg",
         },
       ],
 
@@ -52,7 +52,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.1,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/gookmin-logo.svg",
+          imageUrl: "/assets/icons/banks/gookmin-logo.svg",
         },
         {
           id: 5,
@@ -61,7 +61,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 1.5,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/woori-logo.svg",
+          imageUrl: "/assets/icons/banks/woori-logo.svg",
         },
         {
           id: 6,
@@ -70,7 +70,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 1.2,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/shinhan-logo.svg",
+          imageUrl: "/assets/icons/banks/shinhan-logo.svg",
         },
 
         {
@@ -81,7 +81,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.5,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/hana-logo.svg",
+          imageUrl: "/assets/icons/banks/hana-logo.svg",
         },
         {
           id: 8,
@@ -90,7 +90,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.3,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/nh-logo.svg",
+          imageUrl: "/assets/icons/banks/nh-logo.svg",
         },
         {
           id: 9,
@@ -99,7 +99,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.1,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/gookmin-logo.svg",
+          imageUrl: "/assets/icons/banks/gookmin-logo.svg",
         },
         {
           id: 10,
@@ -108,7 +108,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 1.5,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/woori-logo.svg",
+          imageUrl: "/assets/icons/banks/woori-logo.svg",
         },
         {
           id: 11,
@@ -117,7 +117,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 1.2,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/shinhan-logo.svg",
+          imageUrl: "/assets/icons/banks/shinhan-logo.svg",
         },
 
         {
@@ -127,7 +127,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.5,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/hana-logo.svg",
+          imageUrl: "/assets/icons/banks/hana-logo.svg",
         },
         {
           id: 13,
@@ -136,7 +136,7 @@ export const useFpStore = defineStore(
           intr_rate_type_nm: "단리",
           intr_rate2: 2.3,
           save_trm: 12,
-          imageUrl: "@/assets/icons/banks/nh-logo.svg",
+          imageUrl: "/assets/icons/banks/nh-logo.svg",
         },
       ],
     };
@@ -153,7 +153,7 @@ export const useFpStore = defineStore(
         join_member: "실명의 개인",
         join_way: "인터넷,스마트폰,전화(텔레뱅킹)",
         spcl_cnd: "해당사항 없음",
-        imageUrl: "@/assets/icons/banks/woori-logo.svg",
+        imageUrl: "/assets/icons/banks/woori-logo.svg",
       },
       options: [
         {

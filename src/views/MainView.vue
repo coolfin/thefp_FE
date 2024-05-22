@@ -6,7 +6,7 @@
         class="flex items-center font-bold cursor-pointer gap-x-2"
         @click="moveInfo"
       >
-        <img src="../assets/logo.png" alt="logo" class="w-8 h-8" />
+        <img src="/assets/logo.png" alt="logo" class="w-8 h-8" />
         <h1>THE FP</h1>
       </div>
 
@@ -17,7 +17,7 @@
       <div class="relative flex items-center justify-end flex-1 pr-4 text-sm">
         <img
           @click="isModalOpen = !isModalOpen"
-          src="@/assets/icons/profile-icon.svg"
+          src="/assets/icons/profile-icon.svg"
           alt="profile-icon"
           class="w-10 h-10 cursor-pointer"
         />
@@ -31,7 +31,7 @@
       <!-- 로고 및 텍스트 -->
       <div class="flex-1">
         <div class="flex items-center mb-12 gap-x-4">
-          <img src="@/assets/logo.png" alt="logo" class="w-16 h-16" />
+          <img src="/assets/logo.png" alt="logo" class="w-16 h-16" />
           <h1 class="text-4xl font-bold">THE FP</h1>
         </div>
 
@@ -61,7 +61,7 @@
             class="p-1 transition duration-300 ease-in-out bg-white rounded-full cursor-pointer bg-opacity-80 hover:bg-opacity-100"
           >
             <img
-              src="@/assets/icons/github-logo.png"
+              src="/assets/icons/github-logo.png"
               alt="github"
               class="w-8 h-8"
             />
@@ -71,7 +71,7 @@
             class="p-1 transition duration-300 ease-in-out bg-white rounded-full cursor-pointer bg-opacity-80 hover:bg-opacity-100"
           >
             <img
-              src="@/assets/icons/figma-logo.png"
+              src="/assets/icons/figma-logo.png"
               alt="instagram"
               class="w-8 h-8"
             />

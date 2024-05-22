@@ -18,7 +18,7 @@
         >
           <img
             class="w-4 h-4"
-            src="@/assets/icons/profile-modal-icon.svg"
+            src="/assets/icons/profile-modal-icon.svg"
             alt="profile-modal-icon"
           />
           <span class="text-sm">내 프로필</span>
@@ -30,7 +30,7 @@
           class="flex items-center gap-x-2 p-1 hover:bg-[#eee] cursor-pointer rounded-md"
         >
           <img
-            src="@/assets/icons/logout-modal-icon.svg"
+            src="/assets/icons/logout-modal-icon.svg"
             class="w-4 h-4"
             alt="logout-icon"
           />

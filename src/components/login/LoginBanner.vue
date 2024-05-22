@@ -6,7 +6,7 @@
     <div class="text-5xl">당신 일상의<br />금융상품을 찾아보세요</div>
 
     <!-- image -->
-    <img src="@/assets/login-banner.png" class="object-cover" width="500" />
+    <img src="/assets/login-banner.png" class="object-cover" width="500" />
 
     <!-- bottom text -->
     <div class="text-xl text-end">
