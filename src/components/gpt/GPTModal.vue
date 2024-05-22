@@ -69,7 +69,7 @@ import operChat from "@/components/gpt/operChat.vue";
 
 import { useGptStore } from "@/stores/gpt";
 
-const isModalShow = ref(false);
+const isModalShow = ref(true);
 const gptText = ref("");
 
 const store = useGptStore();
