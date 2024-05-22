@@ -8,7 +8,7 @@
 
       <!-- image -->
       <img
-        src="@/assets/forgot-password-banner.png"
+        src="/assets/forgot-password-banner.png"
         class="object-cover"
         width="500"
       />

@@ -3,7 +3,7 @@
     <!-- 은행명 -->
     <div class="flex items-center gap-x-2">
       <img
-        src="@/assets/icons/banks/shinhan-logo.svg"
+        src="/assets/icons/banks/shinhan-logo.svg"
         alt="shinhan-logo"
         class="w-8 h-8"
       />
@@ -27,7 +27,7 @@
 </template>
 <script setup>
 const deleteLikedProduct = () => {
-  console.log('준비 중 입니다.');
+  console.log("준비 중 입니다.");
 };
 </script>
 <style scoped></style>

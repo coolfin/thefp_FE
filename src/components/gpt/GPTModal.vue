@@ -6,7 +6,7 @@
     >
       <header class="h-[50px] flex gap-x-4 items-center px-4">
         <div class="rounded-full bg-theme">
-          <img src="@/assets/logo.png" class="w-8 h-8" alt="logo" />
+          <img src="/assets/logo.png" class="w-8 h-8" alt="logo" />
         </div>
         <div class="flex flex-col">
           <h3 class="font-bold text-white">THE FP AI</h3>
@@ -36,7 +36,7 @@
         />
         <button type="submit">
           <img
-            src="@/assets/icons/msg-send-icon.svg"
+            src="/assets/icons/msg-send-icon.svg"
             alt="send-icon"
             class="w-6 h-6"
           />
@@ -50,7 +50,7 @@
         @click="isModalShow = !isModalShow"
       >
         <img
-          src="@/assets/logo.png"
+          src="/assets/logo.png"
           alt="chat-btn"
           class="w-8 h-8 rounded-full"
           v-if="isModalShow"

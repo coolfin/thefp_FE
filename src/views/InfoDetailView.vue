@@ -5,7 +5,7 @@
       <!-- background banner -->
       <div>
         <img
-          src="@/assets/detail-banner.png"
+          src="/assets/detail-banner.png"
           alt="banner"
           class="object-cover h-[300px] w-full object-center rounded-lg"
         />

@@ -1,7 +1,7 @@
 <template>
   <div class="flex py-4">
     <img
-      src="@/assets/icons/profile-icon.svg"
+      src="/assets/icons/profile-icon.svg"
       alt="user-icon"
       class="w-20 h-20 mr-2"
     />

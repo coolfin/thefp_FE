@@ -16,7 +16,7 @@ export default {
         theme: "#294936",
       },
       backgroundImage: {
-        "footer-texture": "url('@/assets/footer-background.jpg')",
+        "footer-texture": "url('/assets/footer-background.jpg')",
       },
     },
   },

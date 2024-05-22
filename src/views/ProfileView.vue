@@ -9,7 +9,7 @@
         <!-- 이미지 -->
         <div>
           <img
-            src="@/assets/icons/profile-icon.svg"
+            src="/assets/icons/profile-icon.svg"
             alt="user-icon"
             class="w-30 h-30"
           />
@@ -31,7 +31,7 @@
           {{ store.loginUser?.name }}
           <img
             @click="changeName"
-            src="@/assets/icons/name-edit-icon.svg"
+            src="/assets/icons/name-edit-icon.svg"
             alt="name-edit-icon"
             class="w-4 h-4 cursor-pointer hover:opacity-60"
           />

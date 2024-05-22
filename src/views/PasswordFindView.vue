@@ -4,7 +4,7 @@
     <div class="flex flex-col items-center justify-between flex-1 py-20">
       <!-- 로고 -->
       <img
-        src="@/assets/logo.png"
+        src="/assets/logo.png"
         class="w-[180px] mx-auto mb-10 shadow-lg rounded-full"
       />
 
@@ -20,7 +20,7 @@
           <!-- 이름 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-id-icon.svg"
+              src="/assets/icons/input-id-icon.svg"
               alt="email-icon"
               class="mr-4"
             />
@@ -49,7 +49,7 @@
           <!-- 비밀번호  -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-pw-icon.svg"
+              src="/assets/icons/input-pw-icon.svg"
               alt="pw-icon"
               class="mr-4"
             />
@@ -67,13 +67,13 @@
             >
               <img
                 v-if="isPwVisible"
-                src="@/assets/icons/visible-off-icon.svg"
+                src="/assets/icons/visible-off-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
               <img
                 v-else
-                src="@/assets/icons/visible-icon.svg"
+                src="/assets/icons/visible-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
@@ -83,7 +83,7 @@
           <!-- 비밀번호 확인 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-pw-icon.svg"
+              src="/assets/icons/input-pw-icon.svg"
               alt="pw-icon"
               class="mr-4"
             />
@@ -101,13 +101,13 @@
             >
               <img
                 v-if="isPwCheckVisible"
-                src="@/assets/icons/visible-off-icon.svg"
+                src="/assets/icons/visible-off-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
               <img
                 v-else
-                src="@/assets/icons/visible-icon.svg"
+                src="/assets/icons/visible-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
@@ -134,33 +134,33 @@
 </template>
 
 <script setup>
-import FindPwBanner from '@/components/login/FindPwBanner.vue';
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-import { useUserStore } from '@/stores/user';
+import FindPwBanner from "@/components/login/FindPwBanner.vue";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
 
 const store = useUserStore();
 const router = useRouter();
 
-const userEmail = ref('');
-const userPassword = ref('');
-const userPasswordCheck = ref('');
+const userEmail = ref("");
+const userPassword = ref("");
+const userPasswordCheck = ref("");
 
-const errText = ref('');
+const errText = ref("");
 
 const backToLogin = () => {
   store.findUser = null;
-  router.push({ name: 'home' });
+  router.push({ name: "home" });
 };
 
 const onSubmitEmail = () => {
-  if (userEmail.value.trim() === '') {
-    errText.value = '이메일을 입력해주세요.';
+  if (userEmail.value.trim() === "") {
+    errText.value = "이메일을 입력해주세요.";
     return;
   }
   try {
     store.findEmail(userEmail.value);
-    errText.value = '';
+    errText.value = "";
   } catch (e) {
     errText.value = e.message;
   }
@@ -168,17 +168,17 @@ const onSubmitEmail = () => {
 
 const onSubmitPassword = () => {
   if (
-    userPassword.value.trim() === '' ||
-    userPasswordCheck.value.trim() === ''
+    userPassword.value.trim() === "" ||
+    userPasswordCheck.value.trim() === ""
   ) {
-    errText.value = '비밀번호를 입력해주세요.';
+    errText.value = "비밀번호를 입력해주세요.";
     return;
   } else if (userPassword.value !== userPasswordCheck.value) {
-    errText.value = '비밀번호가 일치하지 않습니다.';
+    errText.value = "비밀번호가 일치하지 않습니다.";
     return;
   }
   store.changePassword(userPassword.value);
-  router.push({ name: 'home' });
+  router.push({ name: "home" });
 };
 
 const isPwVisible = ref(false);
