@@ -1,145 +1,14 @@
+import axios from "axios";
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import { useUserStore } from "@/stores/user";
 
 export const useFpStore = defineStore(
   "fp",
   () => {
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
+
     const products = ref({});
-    const dummyData = {
-      recommends: [
-        {
-          id: 1,
-          kor_co_nm: "국민은행",
-          fin_prdt_nm: "스무살 우리 적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 2.1,
-          save_trm: 12,
-          text: "가장 높은 최고우대금리를 가진 상품이에요📈",
-          tags: ["적금", "1금융권"],
-          imageUrl: "/assets/icons/banks/gookmin-logo.svg",
-        },
-
-        {
-          id: 2,
-          kor_co_nm: "우리은행",
-          fin_prdt_nm: "나무적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 1.5,
-          save_trm: 12,
-          text: "가장 많은 사람들이 찾았어요! 🥳",
-          tags: ["적금", "1금융권"],
-          imageUrl: "/assets/icons/banks/woori-logo.svg",
-        },
-
-        {
-          id: 3,
-          kor_co_nm: "신한은행",
-          fin_prdt_nm: "e-통장",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 1.2,
-          save_trm: 12,
-          text: "저축기간이 가장 짧아요! 🏃",
-          tags: ["적금", "1금융권"],
-          imageUrl: "/assets/icons/banks/shinhan-logo.svg",
-        },
-      ],
-
-      display: [
-        {
-          id: 4,
-          kor_co_nm: "국민은행",
-          fin_prdt_nm: "스무살 우리 적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 2.1,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/gookmin-logo.svg",
-        },
-        {
-          id: 5,
-          kor_co_nm: "우리은행",
-          fin_prdt_nm: "나무적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 1.5,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/woori-logo.svg",
-        },
-        {
-          id: 6,
-          kor_co_nm: "신한은행",
-          fin_prdt_nm: "e-통장",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 1.2,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/shinhan-logo.svg",
-        },
-
-        {
-          id: 7,
-          kor_co_nm: "하나은행",
-          fin_prdt_nm:
-            "하나 첫째적금인데 이름을 엄청나게 늘려서 잘리는지 확인을 해볼게요",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 2.5,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/hana-logo.svg",
-        },
-        {
-          id: 8,
-          kor_co_nm: "농협은행",
-          fin_prdt_nm: "프리미엄 적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 2.3,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/nh-logo.svg",
-        },
-        {
-          id: 9,
-          kor_co_nm: "국민은행",
-          fin_prdt_nm: "스무살 우리 적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 2.1,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/gookmin-logo.svg",
-        },
-        {
-          id: 10,
-          kor_co_nm: "우리은행",
-          fin_prdt_nm: "나무적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 1.5,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/woori-logo.svg",
-        },
-        {
-          id: 11,
-          kor_co_nm: "신한은행",
-          fin_prdt_nm: "e-통장",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 1.2,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/shinhan-logo.svg",
-        },
-
-        {
-          id: 12,
-          kor_co_nm: "하나은행",
-          fin_prdt_nm: "하나 첫째적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 2.5,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/hana-logo.svg",
-        },
-        {
-          id: 13,
-          kor_co_nm: "농협은행",
-          fin_prdt_nm: "프리미엄 적금",
-          intr_rate_type_nm: "단리",
-          intr_rate2: 2.3,
-          save_trm: 12,
-          imageUrl: "/assets/icons/banks/nh-logo.svg",
-        },
-      ],
-    };
     const dummyDetailData = {
       product: {
         id: 1,
@@ -248,8 +117,24 @@ export const useFpStore = defineStore(
     });
 
     //action
-    const setRecommendProducts = () => {
-      products.value = dummyData;
+    const fetchAllProducts = () => {
+      //products.value = dummyData;
+
+      const store = useUserStore();
+      axios({
+        method: "get",
+        url: BASE_URL + "/fp/deposit-products/",
+        headers: {
+          Authorization: `Token ${store.token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res.data);
+          products.value = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
     const setDetailProducts = () => {
@@ -268,13 +153,14 @@ export const useFpStore = defineStore(
     return {
       products,
       detailProduct,
-      setRecommendProducts,
       setDetailProducts,
       getDetailProduct,
       getDetailImage,
       getHighestRate,
       getNormalRate,
       getDetailProductInfo,
+
+      fetchAllProducts,
     };
   },
   {

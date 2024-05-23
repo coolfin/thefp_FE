@@ -11,11 +11,7 @@
       class="flex items-center px-2 py-4 hover:bg-[#eee] rounded-lg cursor-pointer transition duration-300 ease-in-out"
     >
       <div class="flex items-center w-2/12 gap-x-4">
-        <img
-          class="w-10 rounded-lg"
-          :src="item.imageUrl"
-          alt="bank-logo-image"
-        />
+        <img class="w-10 rounded-lg" :src="item.imgUrl" alt="bank-logo-image" />
         <span>{{ item.kor_co_nm }}</span>
       </div>
 

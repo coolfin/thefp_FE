@@ -10,5 +10,13 @@
 <script setup>
 import BestFinancialProducts from "@/components/info/BestFinancialProducts.vue";
 import FinancialProducts from "@/components/info/FinancialProducts.vue";
+import { useFpStore } from "@/stores/fp";
+import { onMounted } from "vue";
+
+const store = useFpStore();
+
+onMounted(() => {
+  store.fetchAllProducts();
+});
 </script>
 <style scoped></style>

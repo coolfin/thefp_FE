@@ -8,7 +8,7 @@
       <div class="flex items-center justify-center rounded-lg">
         <img
           class="w-16 h-16 rounded-lg md:w-20 md:h-20"
-          :src="product.imageUrl"
+          :src="product.imgUrl"
           alt="bank"
         />
       </div>

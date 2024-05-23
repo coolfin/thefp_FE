@@ -25,14 +25,9 @@
   </div>
 </template>
 <script setup>
-import { useFpStore } from "@/stores/fp";
 import FinancialProductItem from "@/components/info/FinancialProductItem.vue";
-import { onMounted } from "vue";
+import { useFpStore } from "@/stores/fp";
 
 const store = useFpStore();
-
-onMounted(() => {
-  store.setDetailProducts();
-});
 </script>
 <style scoped></style>

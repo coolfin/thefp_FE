@@ -7,7 +7,7 @@
       class="flex flex-col items-center justify-between py-8 gap-y-8 md:flex-row md:gap-y-0 gap-x-12"
     >
       <RecommendItem
-        v-for="product in store.products.recommends"
+        v-for="product in store.products.recommend"
         :key="product.fin_prdt_nm"
         :product="product"
       />
@@ -17,12 +17,6 @@
 <script setup>
 import RecommendItem from "@/components/info/RecommendItem.vue";
 import { useFpStore } from "@/stores/fp";
-import { onMounted } from "vue";
-
 const store = useFpStore();
-
-onMounted(() => {
-  store.setRecommendProducts();
-});
 </script>
 <style scoped></style>
