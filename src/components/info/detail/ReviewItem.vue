@@ -7,7 +7,7 @@
     />
 
     <div class="flex flex-col flex-1">
-      <h3>유저명입니다</h3>
+      <h3>{{ comment.nickname }}</h3>
       <div
         class="flex items-center flex-1 bg-[#ccc] px-6 py-3 rounded-full w-fit"
       >
@@ -16,18 +16,22 @@
     </div>
 
     <div>
-      <span class="text-[#ccc] text-sm">몇시 몇분 몇초</span>
+      <span class="text-[#ccc] text-sm"> {{ convertToDate }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { useFpStore } from "@/stores/fp";
 
-const store = useFpStore();
 const props = defineProps({
   comment: Object,
+});
+
+const convertToDate = computed(() => {
+  const date = new Date(props.comment.created_at);
+  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 });
 
 onMounted(() => {

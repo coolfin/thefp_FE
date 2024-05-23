@@ -184,9 +184,7 @@ watch(loginUser, () => {
   compareLiked();
 });
 
-onMounted(async () => {
-  await store.fetchDetailProduct(productId.value);
-
+onMounted(() => {
   curOpt.value = store.getDetailProduct.options[0];
   compareLiked();
 });
