@@ -78,6 +78,7 @@
           <LikedFinancialProduct
             v-for="item in store.getLoginUser.product"
             :key="item"
+            :item="item"
           />
         </div>
         <div v-else class="bg-[#eee] bg-opacity-50 py-4 my-2 rounded-lg">
@@ -112,24 +113,23 @@ const saveEditName = () => {
 };
 
 onMounted(() => {
+  let intr = store.getLikedProducts.map((item) => {
+    return item.fin_prdt_nm;
+  });
+  let prodLabels = store.getLikedProducts.map((item) => {
+    return item.fin_prdt_nm;
+  });
   barChart.value = new Chart(document.getElementById("chart"), {
     type: "line",
     data: {
-      labels: ["#1", "#2", "#3", "#4", "#5", "6"],
+      labels: prodLabels,
       datasets: [
         {
           label: "찜한 상품의 금리 비교",
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)",
-          ],
+          data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+          backgroundColor: "rgba(50, 168, 82,.2)",
           borderColor: [
-            "rgba(255, 99, 132, 1)",
+            "rgba(50,168,82, 1)",
             "rgba(54, 162, 235, 1)",
             "rgba(255, 206, 86, 1)",
             "rgba(75, 192, 192, 1)",

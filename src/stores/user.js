@@ -151,6 +151,18 @@ export const useUserStore = defineStore(
       });
     };
 
+    const delLikedProduct = async (pk) => {
+      await axios({
+        method: "delete",
+        url: BASE_URL + `/ac/delete_product/${pk}/`,
+        headers: {
+          Authorization: `Token ${token.value}`,
+        },
+      }).then(() => {
+        console.log("삭제 완료");
+      });
+    };
+
     return {
       users,
       token,
@@ -167,6 +179,7 @@ export const useUserStore = defineStore(
       editLoginuserName,
       getUserInfo,
       getLikedProducts,
+      delLikedProduct,
     };
   },
   {
