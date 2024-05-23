@@ -99,6 +99,10 @@ export const useFpStore = defineStore(
       return highestRate.intr_rate2;
     });
 
+    const getDetailProduct = computed(() => {
+      return detailProduct.value;
+    });
+
     const getNormalRate = computed(() => {
       return detailProduct.value.options[0];
     });
@@ -137,23 +141,25 @@ export const useFpStore = defineStore(
         });
     };
 
-    const setDetailProducts = () => {
-      detailProduct.value = dummyDetailData;
-    };
-
-    const getDetailProduct = (id) => {
-      // const tar = products.value.display.find(
-      //   (product) => product.id === parseInt(id)
-      // );
-      // return tar;
-
-      return detailProduct.value;
+    const fetchDetailProduct = async (pk) => {
+      const store = useUserStore();
+      await axios({
+        method: "get",
+        url: BASE_URL + `/fp/deposit-product-options/${pk}/`,
+      })
+        .then((res) => {
+          console.log(res.data);
+          detailProduct.value = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
     return {
       products,
       detailProduct,
-      setDetailProducts,
+
       getDetailProduct,
       getDetailImage,
       getHighestRate,
@@ -161,6 +167,7 @@ export const useFpStore = defineStore(
       getDetailProductInfo,
 
       fetchAllProducts,
+      fetchDetailProduct,
     };
   },
   {

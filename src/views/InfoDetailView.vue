@@ -21,10 +21,12 @@
         />
         <div class="flex flex-col justify-center pl-2">
           <!-- 금융회사명 -->
-          <h3 class="text-xl">{{ productItem.product.kor_co_nm }}</h3>
+          <h3 class="text-xl">
+            {{ store.getDetailProduct.product.kor_co_nm }}
+          </h3>
           <!-- 상품명 -->
           <h1 class="text-3xl font-bold">
-            {{ productItem.product.fin_prdt_nm }}
+            {{ store.getDetailProduct.product.fin_prdt_nm }}
           </h1>
         </div>
       </div>
@@ -55,19 +57,19 @@
         <!-- 가입대상 -->
         <div class="flex flex-col justify-center gap-y-2">
           <h3 class="font-bold">가입 대상</h3>
-          <p>{{ productItem.product.join_member }}</p>
+          <p>{{ store.getDetailProduct.product.join_member }}</p>
         </div>
 
         <!-- 가입방법 -->
         <div class="flex flex-col justify-center gap-y-2">
           <h3 class="font-bold">가입 방법</h3>
-          <p>{{ productItem.product.join_way }}</p>
+          <p>{{ store.getDetailProduct.product.join_way }}</p>
         </div>
 
         <!-- 우대조건 -->
         <div class="flex flex-col justify-center gap-y-2">
           <h3 class="font-bold">우대 조건</h3>
-          <p>{{ productItem.product.spcl_cnd }}</p>
+          <p>{{ store.getDetailProduct.product.spcl_cnd }}</p>
         </div>
       </div>
 
@@ -91,13 +93,13 @@
             <div class="w-1/6 border-b border-[#eee]"></div>
             <div class="flex items-center overflow-scroll">
               <IntrPeriodBtn
-                v-for="option in productItem.options"
+                v-for="option in store.getDetailProduct.options"
                 :key="option.id"
                 :option="option"
                 @click="clickOption"
                 :class="{
                   '!bg-white !text-theme !border-x-theme !border-t-theme border !border-b-white':
-                    curOpt === option,
+                    curOpt.id === option.id,
                 }"
               />
             </div>
@@ -108,7 +110,9 @@
           <!-- 금리 값 출력 컨테이너 -->
           <div class="flex flex-col items-center justify-center py-20 gap-y-2">
             <h2 class="text-3xl font-bold">금리 {{ curOpt.intr_rate2 }}%</h2>
-            <p v-if="productItem.product.spcl_cnd !== '해당사항 없음'">
+            <p
+              v-if="store.getDetailProduct.product.spcl_cnd === '해당사항 없음'"
+            >
               우대조건이 없어요 😢
             </p>
             <div class="flex flex-col items-center justify-center" v-else>
@@ -136,13 +140,17 @@ const route = useRoute();
 const store = useFpStore();
 
 const productId = ref(route.params.id);
-const productItem = ref(store.getDetailProduct(productId.value));
-
-const curOpt = ref(productItem.value.options[0]);
+const curOpt = ref({});
 
 const clickOption = (option) => {
   curOpt.value = option;
 };
+
+onMounted(async () => {
+  await store.fetchDetailProduct(productId.value);
+
+  curOpt.value = store.getDetailProduct.options[0];
+});
 </script>
 
 <style scoped></style>

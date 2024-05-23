@@ -43,6 +43,7 @@ const props = defineProps({
 });
 
 const clickFinancialProduct = () => {
+  console.log(props);
   router.push({ name: "info-detail", params: { id: props.item.id } });
 };
 </script>

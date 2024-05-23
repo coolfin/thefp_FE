@@ -117,6 +117,7 @@ export const useUserStore = defineStore(
 
     const editLoginuserName = async (name) => {
       //loginUser.value.name = name;
+      console.log("닉네임 변경", name);
       await axios({
         method: "put",
         url: BASE_URL + "/ac/profile/",
@@ -125,7 +126,7 @@ export const useUserStore = defineStore(
         },
         data: { nickname: name },
       }).then((res) => {
-        console.log("닉네임 변경", res.data);
+        console.log("닉네임 변경", res);
         loginUser.value.user.nickname = res.data.nickname;
       });
     };
