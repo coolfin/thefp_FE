@@ -153,20 +153,19 @@ const backToLogin = () => {
   router.push({ name: "home" });
 };
 
-const onSubmitEmail = () => {
+const onSubmitEmail = async () => {
   if (userEmail.value.trim() === "") {
     errText.value = "이메일을 입력해주세요.";
     return;
   }
   try {
-    store.findEmail(userEmail.value);
-    errText.value = "";
+    await store.findEmail(userEmail.value);
   } catch (e) {
-    errText.value = e.message;
+    errText.value = "가입된 이메일이 아닙니다.";
   }
 };
 
-const onSubmitPassword = () => {
+const onSubmitPassword = async () => {
   if (
     userPassword.value.trim() === "" ||
     userPasswordCheck.value.trim() === ""
@@ -177,8 +176,13 @@ const onSubmitPassword = () => {
     errText.value = "비밀번호가 일치하지 않습니다.";
     return;
   }
-  store.changePassword(userPassword.value);
-  router.push({ name: "home" });
+
+  try {
+    await store.changePassword(userPassword.value);
+    router.push({ name: "home" });
+  } catch (e) {
+    errText.value = "비밀번호 변경에 실패했습니다.";
+  }
 };
 
 const isPwVisible = ref(false);

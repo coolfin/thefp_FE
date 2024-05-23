@@ -11,24 +11,38 @@
         />
       </div>
 
-      <!-- 로고, 상품명 -->
-      <div class="flex flex-col gap-y-8">
-        <!-- 로고 -->
-        <img
-          alt="bank-logo"
-          class="w-[100px] h-[100px]"
-          :src="store.getDetailImage"
-        />
-        <div class="flex flex-col justify-center pl-2">
-          <!-- 금융회사명 -->
-          <h3 class="text-xl">
-            {{ store.getDetailProduct.product.kor_co_nm }}
-          </h3>
-          <!-- 상품명 -->
-          <h1 class="text-3xl font-bold">
-            {{ store.getDetailProduct.product.fin_prdt_nm }}
-          </h1>
+      <div class="flex items-end justify-between">
+        <!-- 로고, 상품명 -->
+        <div class="flex flex-col gap-y-8">
+          <!-- 로고 -->
+          <img
+            alt="bank-logo"
+            class="w-[100px] h-[100px]"
+            :src="store.getDetailImage"
+          />
+          <div class="flex flex-col justify-center pl-2">
+            <!-- 금융회사명 -->
+            <h3 class="text-xl">
+              {{ store.getDetailProduct.product.kor_co_nm }}
+            </h3>
+            <!-- 상품명 -->
+            <h1 class="text-3xl font-bold">
+              {{ store.getDetailProduct.product.fin_prdt_nm }}
+            </h1>
+          </div>
         </div>
+
+        <button @click="clickLiked">
+          <img
+            alt="like-icon"
+            :src="
+              isLiked
+                ? '/assets/icons/like-off-icon.svg' //차있는것
+                : '/assets/icons/like-on-icon.svg'
+            "
+            class="w-12 h-12"
+          />
+        </button>
       </div>
 
       <!-- callout -->
@@ -129,27 +143,52 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useFpStore } from "@/stores/fp";
+import { useUserStore } from "@/stores/user";
+import { storeToRefs } from "pinia";
 
 import IntrPeriodBtn from "@/components/info/detail/IntrPeriodBtn.vue";
 import ReviewContainer from "@/components/info/detail/ReviewContainer.vue";
 
 const route = useRoute();
 const store = useFpStore();
+const userStore = useUserStore();
+const { loginUser } = storeToRefs(userStore);
 
 const productId = ref(route.params.id);
 const curOpt = ref({});
+
+const clickLiked = async () => {
+  await store.addLikedProduct(productId.value);
+};
 
 const clickOption = (option) => {
   curOpt.value = option;
 };
 
+const isLiked = ref(false);
+const compareLiked = () => {
+  const produts = userStore.getLikedProducts;
+  produts.map((product) => {
+    if (store.getDetailProduct.product.id === product.id) {
+      isLiked.value = true;
+    }
+  });
+
+  return;
+};
+
+watch(loginUser, () => {
+  compareLiked();
+});
+
 onMounted(async () => {
   await store.fetchDetailProduct(productId.value);
 
   curOpt.value = store.getDetailProduct.options[0];
+  compareLiked();
 });
 </script>
 

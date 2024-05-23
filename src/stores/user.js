@@ -38,6 +38,10 @@ export const useUserStore = defineStore(
       return loginUser.value;
     });
 
+    const getLikedProducts = computed(() => {
+      return loginUser.value?.product;
+    });
+
     // 내 프로필에서 이름 변경 시, 로그인한 유저의 이름도 변경
     watch(loginUser, (newUser, oldUser) => {
       if (newUser === null) return;
@@ -71,7 +75,6 @@ export const useUserStore = defineStore(
         },
       }).then((res) => {
         loginUser.value = res.data;
-        console.log(loginUser.value);
       });
     };
 
@@ -88,36 +91,54 @@ export const useUserStore = defineStore(
       });
     };
 
-    const findEmail = (email) => {
-      const user = users.value.find((user) => user.email === email);
-      if (!user) {
-        throw new Error("가입되지 않은 이메일입니다.");
-      }
+    const findEmail = async (email) => {
+      // const user = users.value.find((user) => user.email === email);
+      // if (!user) {
+      //   throw new Error("가입되지 않은 이메일입니다.");
+      // }
 
-      findUser.value = user;
-      alert(
-        findUser.value.name +
-          "님의 이메일(" +
-          findUser.value.email +
-          ")로 전송하였습니다."
-      );
+      // findUser.value = user;
+      // alert(
+      //   findUser.value.name +
+      //     "님의 이메일(" +
+      //     findUser.value.email +
+      //     ")로 전송하였습니다."
+      // );
+
+      await axios({
+        method: "post",
+        url: BASE_URL + "/ac/reset_pw/",
+        data: { email: email },
+      }).then((res) => {
+        findUser.value = res.data;
+      });
     };
 
-    const changePassword = (password) => {
-      users.value = users.value.map((user) => {
-        if (user.id === findUser.value.id) {
-          user.password = password;
-          alert(user.name + "님의 비밀번호가 변경되었습니다.");
-          findUser.value = null;
-          return user;
-        }
-        return user;
+    const changePassword = async (password) => {
+      // users.value = users.value.map((user) => {
+      //   if (user.id === findUser.value.id) {
+      //     user.password = password;
+      //     alert(user.name + "님의 비밀번호가 변경되었습니다.");
+      //     findUser.value = null;
+      //     return user;
+      //   }
+      //   return user;
+      // });
+
+      await axios({
+        method: "put",
+        url: BASE_URL + "/ac/reset_pw/",
+        data: {
+          email: findUser.value.email,
+          password: password,
+        },
+      }).then((res) => {
+        alert("비밀번호 변경 완료");
       });
     };
 
     const editLoginuserName = async (name) => {
       //loginUser.value.name = name;
-      console.log("닉네임 변경", name);
       await axios({
         method: "put",
         url: BASE_URL + "/ac/profile/",
@@ -126,7 +147,6 @@ export const useUserStore = defineStore(
         },
         data: { nickname: name },
       }).then((res) => {
-        console.log("닉네임 변경", res);
         loginUser.value.user.nickname = res.data.nickname;
       });
     };
@@ -146,6 +166,7 @@ export const useUserStore = defineStore(
       changePassword,
       editLoginuserName,
       getUserInfo,
+      getLikedProducts,
     };
   },
   {

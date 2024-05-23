@@ -27,21 +27,29 @@
       </div>
     </form>
 
-    <ReviewItem v-for="i in 5" :key="i" />
+    <div v-if="fpStore.getReviews.length">
+      <ReviewItem
+        v-for="comment in fpStore.getReviews"
+        :key="comment?.id"
+        :comment="comment"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
 import ReviewItem from "@/components/info/detail/ReviewItem.vue";
 import { useUserStore } from "@/stores/user";
+import { useFpStore } from "@/stores/fp";
 import { ref } from "vue";
 
 const userStore = useUserStore();
+const fpStore = useFpStore();
 
 const reviewText = ref("");
 
 const submitReview = () => {
-  alert(reviewText.value);
+  fpStore.createReview(reviewText.value);
   reviewText.value = "";
 };
 </script>

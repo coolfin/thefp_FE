@@ -11,7 +11,7 @@
       <div
         class="flex items-center flex-1 bg-[#ccc] px-6 py-3 rounded-full w-fit"
       >
-        유저가 적은 댓글입니다. 몇 자를 최대로 할 지 고민중
+        {{ comment.content }}
       </div>
     </div>
 
@@ -21,6 +21,18 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted } from "vue";
+import { useFpStore } from "@/stores/fp";
+
+const store = useFpStore();
+const props = defineProps({
+  comment: Object,
+});
+
+onMounted(() => {
+  console.log(props.comment);
+});
+</script>
 
 <style scoped></style>
