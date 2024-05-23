@@ -35,6 +35,11 @@ const router = createRouter({
           component: () => import("@/views/InfoDetailView.vue"),
         },
         {
+          path: "recommend",
+          name: "recommend",
+          component: () => import("@/views/RecommendView.vue"),
+        },
+        {
           path: "exchange",
           name: "exchange",
           component: () => import("@/views/ExchangeView.vue"),
