@@ -11,11 +11,7 @@
       class="flex items-center px-2 py-4 hover:bg-[#eee] rounded-lg cursor-pointer transition duration-300 ease-in-out"
     >
       <div class="flex items-center w-2/12 gap-x-4">
-        <img
-          class="w-10 rounded-lg"
-          :src="item.imageUrl"
-          alt="bank-logo-image"
-        />
+        <img class="w-10 rounded-lg" :src="item.imgUrl" alt="bank-logo-image" />
         <span>{{ item.kor_co_nm }}</span>
       </div>
 
@@ -39,14 +35,17 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-
+import { useFpStore } from "@/stores/fp";
 const router = useRouter();
 
 const props = defineProps({
   item: Object,
 });
 
-const clickFinancialProduct = () => {
+const store = useFpStore();
+const clickFinancialProduct = async () => {
+  console.log(props);
+  await store.fetchDetailProduct(props.item.id);
   router.push({ name: "info-detail", params: { id: props.item.id } });
 };
 </script>

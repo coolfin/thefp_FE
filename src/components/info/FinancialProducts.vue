@@ -25,8 +25,8 @@
   </div>
 </template>
 <script setup>
-import { useFpStore } from "@/stores/fp";
 import FinancialProductItem from "@/components/info/FinancialProductItem.vue";
+import { useFpStore } from "@/stores/fp";
 
 const store = useFpStore();
 </script>

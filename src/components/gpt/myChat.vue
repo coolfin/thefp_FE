@@ -9,7 +9,7 @@
       class="w-10 h-10 overflow-hidden border-2 rounded-full bg-[#3e6259] border-[#3e6259] shrink-0"
     >
       <img
-        src="@/assets/icons/person.svg"
+        src="/assets/icons/person.svg"
         alt="gpt-chatbot-icon"
         class="object-cover w-[100%] h-[100%]"
       />

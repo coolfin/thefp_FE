@@ -1,12 +1,12 @@
 <template>
   <div
-    class="flex flex-col items-center justify-between flex-1 py-20 font-bold text-white bg-theme gap-y-8"
+    class="flex flex-col items-center justify-between flex-1 py-10 font-bold text-white 2xl:py-20 bg-theme gap-y-8"
   >
     <!-- top text -->
     <div class="text-5xl">당신 일상의<br />금융상품을 찾아보세요</div>
 
     <!-- image -->
-    <img src="@/assets/login-banner.png" class="object-cover" width="500" />
+    <img src="/assets/login-banner.png" class="object-cover" width="500" />
 
     <!-- bottom text -->
     <div class="text-xl text-end">

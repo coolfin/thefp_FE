@@ -1,8 +1,8 @@
 <template>
   <div
-    class="h-screen text-theme flex justify-center items-center flex-col gap-y-8"
+    class="flex flex-col items-center justify-center h-screen text-theme gap-y-8"
   >
-    <img src="@/assets/404-banner.png" alt="404" class="w-1/4" />
+    <img src="/assets/404-banner.png" alt="404" class="w-1/4" />
     <h1 class="text-4xl font-bold">요청하신 페이지에 연결할 수 없습니다</h1>
     <div class="flex flex-col items-center justify-center">
       <p>방문하시려는 페이지가 삭제되었거나 주소가 변경되었을 수 있습니다.</p>
@@ -17,11 +17,11 @@
   </div>
 </template>
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 const router = useRouter();
 
 const moveInfo = () => {
-  router.push('/main/info');
+  router.push("/main/info");
 };
 </script>
 <style scoped></style>

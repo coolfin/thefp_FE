@@ -8,7 +8,7 @@
       <div class="flex items-center justify-center rounded-lg">
         <img
           class="w-16 h-16 rounded-lg md:w-20 md:h-20"
-          :src="product.imageUrl"
+          :src="product.imgUrl"
           alt="bank"
         />
       </div>
@@ -39,13 +39,15 @@
 <script setup>
 import RecoomendTag from "@/components/info/RecoomendTag.vue";
 import { useRouter } from "vue-router";
-
+import { useFpStore } from "@/stores/fp";
 const router = useRouter();
 const props = defineProps({
   product: Object,
 });
 
-const clickRecommendProduct = () => {
+const store = useFpStore();
+const clickRecommendProduct = async () => {
+  await store.fetchDetailProduct(props.product.id);
   router.push({ name: "info-detail", params: { id: props.product.id } });
 };
 </script>

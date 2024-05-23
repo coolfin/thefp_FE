@@ -3,8 +3,8 @@
     <div class="shadow-lg rounded-md py-2 px-6 w-[200px]">
       <!-- 정보 -->
       <div class="border-b border-[#ccc] pb-2">
-        <h1 class="font-bold">{{ store.loginUser.name }}</h1>
-        <p>{{ store.loginUser.email }}</p>
+        <h1 class="font-bold">{{ store.getLoginUser.user.nickname }}</h1>
+        <p>{{ store.getLoginUser.user.email }}</p>
       </div>
 
       <!-- 바로가기 -->
@@ -18,7 +18,7 @@
         >
           <img
             class="w-4 h-4"
-            src="@/assets/icons/profile-modal-icon.svg"
+            src="/assets/icons/profile-modal-icon.svg"
             alt="profile-modal-icon"
           />
           <span class="text-sm">내 프로필</span>
@@ -30,7 +30,7 @@
           class="flex items-center gap-x-2 p-1 hover:bg-[#eee] cursor-pointer rounded-md"
         >
           <img
-            src="@/assets/icons/logout-modal-icon.svg"
+            src="/assets/icons/logout-modal-icon.svg"
             class="w-4 h-4"
             alt="logout-icon"
           />

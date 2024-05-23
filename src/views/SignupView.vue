@@ -6,13 +6,13 @@
     <div class="flex flex-col items-center justify-between flex-1 py-10">
       <!-- logo -->
       <img
-        src="@/assets/logo.png"
+        src="/assets/logo.png"
         class="w-[180px] mx-auto mb-4 shadow-lg rounded-full"
       />
 
       <!-- input container -->
       <div
-        class="flex flex-col items-center justify-start flex-1 py-14 gap-y-4"
+        class="flex flex-col items-center justify-start flex-1 2xl:py-14 gap-y-4"
       >
         <!-- simple input -->
         <form
@@ -22,7 +22,7 @@
           <!-- 이름 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/name-icon.svg"
+              src="/assets/icons/name-icon.svg"
               alt="name-icon"
               class="mr-4"
             />
@@ -37,7 +37,7 @@
           <!-- 생년월일 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/calendar-icon.svg"
+              src="/assets/icons/calendar-icon.svg"
               alt="birth-icon"
               class="mr-4"
             />
@@ -52,7 +52,7 @@
           <!-- 이메일 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-id-icon.svg"
+              src="/assets/icons/input-id-icon.svg"
               alt="id-icon"
               class="mr-4"
             />
@@ -67,7 +67,7 @@
           <!-- 비밀번호 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-pw-icon.svg"
+              src="/assets/icons/input-pw-icon.svg"
               alt="pw-icon"
               class="mr-4"
             />
@@ -85,13 +85,13 @@
             >
               <img
                 v-if="isPwVisible"
-                src="@/assets/icons/visible-off-icon.svg"
+                src="/assets/icons/visible-off-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
               <img
                 v-else
-                src="@/assets/icons/visible-icon.svg"
+                src="/assets/icons/visible-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
@@ -101,7 +101,7 @@
           <!-- 비밀번호 확인 -->
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-pw-icon.svg"
+              src="/assets/icons/input-pw-icon.svg"
               alt="pw-icon"
               class="mr-4"
             />
@@ -119,20 +119,20 @@
             >
               <img
                 v-if="isPwCheckVisible"
-                src="@/assets/icons/visible-off-icon.svg"
+                src="/assets/icons/visible-off-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
               <img
                 v-else
-                src="@/assets/icons/visible-icon.svg"
+                src="/assets/icons/visible-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
             </div>
           </div>
 
-          <p v-if="errText" class="font-normal text-red-500">
+          <p class="font-normal text-red-500">
             {{ errText }}
           </p>
 
@@ -265,24 +265,32 @@ const compareInput = () => {
 //temp router
 import { useRouter } from "vue-router";
 const router = useRouter();
-const onSubmit = () => {
+const onSubmit = async () => {
   if (!compareInput()) {
     return;
   }
 
   const user = {
-    name: signUpName.value,
+    nickname: signUpName.value,
     birth: signUpBirth.value,
     email: signUpId.value,
-    password: signUpPw.value,
+    password1: signUpPw.value,
+    password2: signUpPw.value,
+    username: signUpId.value.split("@")[0],
   };
+
   try {
-    store.signup(user);
+    await store.signup(user);
+    router.push({ name: "home" });
   } catch (e) {
-    errText.value = e.message;
+    let msg = "";
+    for (let key in e.response.data) {
+      msg += store.ERR_TEXT[e.response.data[key][0]] + "\n";
+    }
+    errText.value = msg;
     return;
   }
-  router.push("/");
+  // router.push("/");
 };
 
 const clickLogin = () => {

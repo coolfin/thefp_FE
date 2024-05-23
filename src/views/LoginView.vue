@@ -4,10 +4,12 @@
     <LoginBanner />
 
     <!-- login -->
-    <div class="flex flex-col items-center justify-between flex-1 py-20">
+    <div
+      class="flex flex-col items-center justify-between flex-1 bg-white 2xl:py-20"
+    >
       <!-- logo -->
       <img
-        src="@/assets/logo.png"
+        src="/assets/logo.png"
         class="w-[180px] mx-auto mb-10 shadow-lg rounded-full"
       />
 
@@ -23,7 +25,7 @@
         >
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-id-icon.svg"
+              src="/assets/icons/input-id-icon.svg"
               alt="id-icon"
               class="mr-4"
             />
@@ -36,7 +38,7 @@
           </div>
           <div class="flex p-4 border rounded-lg border-theme">
             <img
-              src="@/assets/icons/input-pw-icon.svg"
+              src="/assets/icons/input-pw-icon.svg"
               alt="pw-icon"
               class="mr-4"
             />
@@ -54,13 +56,13 @@
             >
               <img
                 v-if="isPwVisible"
-                src="@/assets/icons/visible-off-icon.svg"
+                src="/assets/icons/visible-off-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
               <img
                 v-else
-                src="@/assets/icons/visible-icon.svg"
+                src="/assets/icons/visible-icon.svg"
                 alt="pw-visible-icon"
                 class="w-6 h-6 cursor-pointer opacity-70"
               />
@@ -92,18 +94,18 @@
           type="submit"
           class="flex items-center justify-center w-full py-4 mt-4 transition-colors duration-500 ease-in-out border rounded-lg text-theme border-theme hover:bg-theme hover:text-white"
         >
-          <img src="@/assets/google-logo.png" class="w-6 h-6 mr-2" />
+          <img src="/assets/google-logo.png" class="w-6 h-6 mr-2" />
           구글로 로그인
         </button>
-      </div>
 
-      <div class="flex flex-col items-center justify-center font-bold">
-        <p>아직 계정이 없으세요?</p>
-        <RouterLink
-          :to="{ name: 'signup' }"
-          class="underline decoration-[#294936] text-theme cursor-pointer"
-          >회원가입</RouterLink
-        >
+        <div class="flex flex-col items-center justify-center font-bold">
+          <p>아직 계정이 없으세요?</p>
+          <RouterLink
+            :to="{ name: 'signup' }"
+            class="underline decoration-[#294936] text-theme cursor-pointer"
+            >회원가입</RouterLink
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -133,18 +135,23 @@ const findPw = () => {
   router.push({ name: "password-find" });
 };
 
-const onLogin = () => {
+const onLogin = async () => {
   if (!userId.value || !userPw.value) {
     errText.value = "아이디와 비밀번호를 입력해주세요.";
     return;
   }
   try {
-    store.login(userId.value, userPw.value);
+    await store.login(userId.value, userPw.value);
+
+    router.push({ name: "main" });
   } catch (e) {
-    errText.value = e.message;
+    let msg = "";
+    for (let key in e.response.data) {
+      msg += store.ERR_TEXT[e.response.data[key][0]] + "\n";
+    }
+    errText.value = msg;
     return;
   }
-  router.push({ name: "main" });
 };
 
 const clickGoogleLogin = () => {
