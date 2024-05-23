@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed, watch } from "vue";
 import axios from "axios";
+import Chart from "chart.js/auto";
 
 export const useUserStore = defineStore(
   "user",
@@ -29,6 +30,8 @@ export const useUserStore = defineStore(
     const findUser = ref(null);
 
     const token = ref(null);
+
+    const barChart = ref(null);
     //getter
     const isFoundUser = computed(() => {
       return findUser.value === null;
@@ -79,8 +82,8 @@ export const useUserStore = defineStore(
     };
 
     const logout = () => {
-      token.value = null;
       loginUser.value = null;
+      token.value = null;
     };
 
     const signup = async (user) => {
@@ -110,7 +113,6 @@ export const useUserStore = defineStore(
         url: BASE_URL + "/ac/reset_pw/",
         data: { email: email },
       }).then((res) => {
-        console.log(res.data);
         findUser.value = res.data;
       });
     };
@@ -160,8 +162,8 @@ export const useUserStore = defineStore(
         headers: {
           Authorization: `Token ${token.value}`,
         },
-      }).then(() => {
-        console.log("삭제 완료");
+      }).then((res) => {
+        getUserInfo();
       });
     };
 

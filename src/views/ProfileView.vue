@@ -18,9 +18,9 @@
         <!-- 환영메시지, 이메일 -->
         <div>
           <h1 class="text-2xl font-bold">
-            {{ store.getLoginUser.user.nickname }}님, 어서오세요 🖐
+            {{ store.getLoginUser?.user.nickname }}님, 어서오세요 🖐
           </h1>
-          <p class="text-lg">{{ store.getLoginUser.user.email }}</p>
+          <p class="text-lg">{{ store.getLoginUser?.user.email }}</p>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
       <div class="flex flex-col justify-center gap-y-2">
         <h1 class="text-2xl font-bold">이름</h1>
         <div class="flex items-center gap-x-2" v-if="!canEditName">
-          {{ store.getLoginUser.user.nickname }}
+          {{ store.getLoginUser?.user.nickname }}
           <img
             @click="changeName"
             src="/assets/icons/name-edit-icon.svg"
@@ -59,7 +59,7 @@
 
       <div
         class="flex flex-col justify-center gap-y-2"
-        v-show="store.getLoginUser.product.length > 0"
+        v-show="store.getLoginUser?.product.length > 0"
       >
         <h1 class="text-2xl font-bold">차트</h1>
         <div class="items-center gap-x-2 h-[400px]">
@@ -73,12 +73,13 @@
 
         <div
           class="h-[300px] overflow-scroll flex flex-col gap-y-2"
-          v-if="store.getLoginUser.product.length > 0"
+          v-if="store.getLoginUser?.product.length > 0"
         >
           <LikedFinancialProduct
-            v-for="item in store.getLoginUser.product"
+            v-for="item in store.getLoginUser?.product"
             :key="item"
             :item="item"
+            :barChart="barChart"
           />
         </div>
         <div v-else class="bg-[#eee] bg-opacity-50 py-4 my-2 rounded-lg">
@@ -92,7 +93,6 @@
 import LikedFinancialProduct from "@/components/profile/LikedFinancialProduct.vue";
 import { useUserStore } from "@/stores/user";
 import { onMounted, ref } from "vue";
-import { storeToRefs } from "pinia";
 
 //chartjs
 import Chart from "chart.js/auto";
@@ -101,7 +101,7 @@ const barChart = ref(null);
 const store = useUserStore();
 
 const canEditName = ref(false);
-const name = ref(store.getLoginUser.user.nickname);
+const name = ref(store.getLoginUser?.user.nickname);
 
 const changeName = () => {
   canEditName.value = !canEditName.value;
@@ -112,13 +112,15 @@ const saveEditName = () => {
   canEditName.value = !canEditName.value;
 };
 
-onMounted(() => {
+const getChart = async () => {
   let intr = store.getLikedProducts.map((item) => {
-    return item.fin_prdt_nm;
+    return item.intr_rate2;
   });
   let prodLabels = store.getLikedProducts.map((item) => {
     return item.fin_prdt_nm;
   });
+
+  console.log(store.getLikedProducts);
   barChart.value = new Chart(document.getElementById("chart"), {
     type: "line",
     data: {
@@ -126,7 +128,7 @@ onMounted(() => {
       datasets: [
         {
           label: "찜한 상품의 금리 비교",
-          data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+          data: intr,
           backgroundColor: "rgba(50, 168, 82,.2)",
           borderColor: [
             "rgba(50,168,82, 1)",
@@ -150,6 +152,10 @@ onMounted(() => {
       },
     },
   });
+};
+
+onMounted(async () => {
+  await getChart();
 });
 </script>
 <style scoped></style>

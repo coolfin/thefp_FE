@@ -22,8 +22,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed } from "vue";
-import { useFpStore } from "@/stores/fp";
+import { computed } from "vue";
 
 const props = defineProps({
   comment: Object,
@@ -32,10 +31,6 @@ const props = defineProps({
 const convertToDate = computed(() => {
   const date = new Date(props.comment.created_at);
   return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
-});
-
-onMounted(() => {
-  console.log(props.comment);
 });
 </script>
 
