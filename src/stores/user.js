@@ -1,23 +1,34 @@
 import { defineStore } from "pinia";
 import { ref, computed, watch } from "vue";
+import axios from "axios";
 
 export const useUserStore = defineStore(
   "user",
   () => {
     //state
-    const dummyUser = {
-      id: 1,
-      name: "홍길동",
-      birth: "1990-01-01",
-      email: "test@test.com",
-      password: "1234",
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
+    const ERR_TEXT = {
+      "Unable to log in with provided credentials.":
+        "아이디 또는 비밀번호가 일치하지 않습니다.",
+      "This field may not be blank.": "모든 항목을 입력해주세요.",
+      "Enter a valid email address.": "이메일 형식이 올바르지 않습니다.",
+      "A user with that username already exists.": "이미 가입된 이메일입니다.",
+      "A user is already registered with this e-mail address.":
+        "이미 가입된 이메일입니다.",
+      "This password is too common.": "비밀번호가 너무 간단합니다.",
+      "This password is entirely numeric.":
+        "비밀번호에 숫자만 사용할 수 없습니다.",
+      "This password is too short. It must contain at least 8 characters.":
+        "비밀번호는 8자 이상이어야 합니다.",
     };
 
-    const users = ref([dummyUser]);
+    const users = ref([]);
 
     const loginUser = ref(null);
+
     const findUser = ref(null);
 
+    const token = ref(null);
     //getter
     const isFoundUser = computed(() => {
       return findUser.value === null;
@@ -36,32 +47,44 @@ export const useUserStore = defineStore(
         }
         return user;
       });
-    })
+    });
 
     //action
-    const login = (email, password) => {
-      const user = users.value.find((user) => user.email === email);
-      if (!user) {
-        throw new Error("가입되지 않은 이메일입니다.");
-      }
-      if (user.password !== password) {
-        throw new Error("비밀번호가 일치하지 않습니다.");
-      }
-      loginUser.value = user;
-      alert(loginUser.value.name + "님 환영합니다.");
+    const login = async (email, password) => {
+      await axios({
+        method: "post",
+        url: BASE_URL + "/accounts/login/",
+        data: { username: email.split("@")[0], email, password },
+      }).then((res) => {
+        token.value = res.data.key;
+      });
+
+      await getUserInfo();
+    };
+
+    const getUserInfo = async () => {
+      await axios({
+        method: "get",
+        url: BASE_URL + "/ac/profile/",
+        headers: {
+          Authorization: `Token ${token.value}`,
+        },
+      }).then((res) => {
+        loginUser.value = res.data;
+        console.log(loginUser.value);
+      });
     };
 
     const logout = () => {
       loginUser.value = null;
-    }
+    };
 
-    const signup = (user) => {
-      users.value.map((userData) => {
-        if (userData.email === user.email) {
-          throw new Error("이미 가입된 이메일입니다.");
-        }
+    const signup = async (user) => {
+      await axios({
+        method: "post",
+        url: BASE_URL + "/accounts/signup/",
+        data: user,
       });
-      users.value.push({ id: users.value.length + 1, ...user });
     };
 
     const findEmail = (email) => {
@@ -71,7 +94,12 @@ export const useUserStore = defineStore(
       }
 
       findUser.value = user;
-      alert(findUser.value.name + "님의 이메일(" + findUser.value.email + ")로 전송하였습니다.");
+      alert(
+        findUser.value.name +
+          "님의 이메일(" +
+          findUser.value.email +
+          ")로 전송하였습니다."
+      );
     };
 
     const changePassword = (password) => {
@@ -84,18 +112,20 @@ export const useUserStore = defineStore(
         }
         return user;
       });
-    }
+    };
 
     const editLoginuserName = (name) => {
       loginUser.value.name = name;
-    }
+    };
 
     return {
       users,
+      token,
       loginUser,
       findUser,
       getLoginUser,
       isFoundUser,
+      ERR_TEXT,
       login,
       logout,
       signup,

@@ -135,18 +135,23 @@ const findPw = () => {
   router.push({ name: "password-find" });
 };
 
-const onLogin = () => {
+const onLogin = async () => {
   if (!userId.value || !userPw.value) {
     errText.value = "아이디와 비밀번호를 입력해주세요.";
     return;
   }
   try {
-    store.login(userId.value, userPw.value);
+    await store.login(userId.value, userPw.value);
+
+    router.push({ name: "main" });
   } catch (e) {
-    errText.value = e.message;
+    let msg = "";
+    for (let key in e.response.data) {
+      msg += store.ERR_TEXT[e.response.data[key][0]] + "\n";
+    }
+    errText.value = msg;
     return;
   }
-  router.push({ name: "main" });
 };
 
 const clickGoogleLogin = () => {

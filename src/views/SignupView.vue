@@ -132,7 +132,7 @@
             </div>
           </div>
 
-          <p v-if="errText" class="font-normal text-red-500">
+          <p class="font-normal text-red-500">
             {{ errText }}
           </p>
 
@@ -265,24 +265,32 @@ const compareInput = () => {
 //temp router
 import { useRouter } from "vue-router";
 const router = useRouter();
-const onSubmit = () => {
+const onSubmit = async () => {
   if (!compareInput()) {
     return;
   }
 
   const user = {
-    name: signUpName.value,
+    nickname: signUpName.value,
     birth: signUpBirth.value,
     email: signUpId.value,
-    password: signUpPw.value,
+    password1: signUpPw.value,
+    password2: signUpPw.value,
+    username: signUpId.value.split("@")[0],
   };
+
   try {
-    store.signup(user);
+    await store.signup(user);
+    router.push({ name: "home" });
   } catch (e) {
-    errText.value = e.message;
+    let msg = "";
+    for (let key in e.response.data) {
+      msg += store.ERR_TEXT[e.response.data[key][0]] + "\n";
+    }
+    errText.value = msg;
     return;
   }
-  router.push("/");
+  // router.push("/");
 };
 
 const clickLogin = () => {
