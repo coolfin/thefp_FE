@@ -18,12 +18,12 @@
           class="px-2 font-bold text-center text-white bg-transparent appearance-none cursor-pointer focus:outline-none"
         >
           <option
-            v-for="exchange in dummyExchange"
+            v-for="exchange in exchange"
             :value="exchange"
-            :key="'_from' + exchange.name"
+            :key="'_from' + exchange.cur_nm"
             class="font-bold text-theme"
           >
-            {{ exchange.name }}
+            {{ exchange.cur_nm }}
           </option>
         </select>
       </div>
@@ -54,24 +54,14 @@
   </div>
 </template>
 <script setup>
-import { ref, watch, computed } from "vue";
+import axios from "axios";
+import { ref, watch, computed, onMounted } from "vue";
 
 const FromNum = ref("");
 const ToNum = ref("");
 
-const FromselectedExchange = ref({
-  name: "대한민국 원",
-  rate: 1,
-  symbol: "원",
-});
-
-const dummyExchange = ref([
-  { name: "대한민국 원", rate: 1, symbol: "원" },
-  { name: "미국 달러", rate: 0.00073, symbol: "달러" },
-  { name: "유럽 유로", rate: 0.00068, symbol: "유로" },
-  { name: "일본 엔", rate: 0.11, symbol: "엔" },
-  { name: "중국 위안", rate: 0.0053, symbol: "위안" },
-]);
+const exchange = ref([]);
+const FromselectedExchange = ref({});
 
 watch(FromselectedExchange, () => {
   calExchange();
@@ -89,7 +79,11 @@ const calExchange = () => {
     FromNum.value = FromNum.value.slice(0, -1);
   }
 
-  ToNum.value = FromNum.value * FromselectedExchange.value.rate;
+  const tar_rate = parseFloat(
+    FromselectedExchange.value.kftc_deal_bas_r.replace(",", "")
+  );
+
+  ToNum.value = FromNum.value / tar_rate;
   ToNum.value = ToNum.value.toString();
 };
 
@@ -106,7 +100,7 @@ const showFromExchangeNum = computed(() => {
 });
 
 const showToExchangeNum = computed(() => {
-  if (FromselectedExchange.value.symbol === "원") {
+  if (FromselectedExchange.value.cur_unit === "KRW") {
     if (ToNum.value.length <= 4) {
       return `${ToNum.value} 원`;
     } else if (ToNum.value.length <= 8) {
@@ -123,17 +117,17 @@ const showToExchangeNum = computed(() => {
     ).toString();
 
     if (integerPart.length <= 4) {
-      return `${integerPart}.${decimalPart} ${FromselectedExchange.value.symbol}`;
+      return `${integerPart}.${decimalPart} ${FromselectedExchange.value.cur_unit}`;
     } else if (integerPart.length <= 8) {
       return `${integerPart.slice(0, -4)}만 ${integerPart.slice(
         -4
-      )}.${decimalPart} ${FromselectedExchange.value.symbol}`;
+      )}.${decimalPart} ${FromselectedExchange.value.cur_unit}`;
     } else if (integerPart.length <= 12) {
       return `${integerPart.slice(0, -8)}억 ${integerPart.slice(
         -8,
         -4
       )}만 ${integerPart.slice(-4)}.${decimalPart} ${
-        FromselectedExchange.value.symbol
+        FromselectedExchange.value.cur_unit
       }`;
     }
     return `${integerPart.slice(0, -12)}조 ${integerPart.slice(
@@ -141,8 +135,26 @@ const showToExchangeNum = computed(() => {
       -8
     )}억 ${integerPart.slice(-8, -4)}만 ${integerPart.slice(
       -4
-    )}.${decimalPart} ${FromselectedExchange.value.symbol}`;
+    )}.${decimalPart} ${FromselectedExchange.value.cur_unit}`;
   }
+});
+
+onMounted(async () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  await axios({
+    method: "get",
+    url: BASE_URL + "/exchange/exchange_rate/",
+  })
+    .then((res) => {
+      exchange.value = res.data.exchange_rate;
+
+      const korea = exchange.value.filter((item) => item.cur_unit === "KRW");
+      console.log(korea);
+      FromselectedExchange.value = korea[0];
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 </script>
 <style scoped></style>
