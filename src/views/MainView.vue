@@ -11,6 +11,9 @@
       </div>
 
       <RouterLink :to="{ name: 'info' }" class="font-bold">상품정보</RouterLink>
+      <RouterLink :to="{ name: 'recommend' }" class="font-bold"
+        >상품추천</RouterLink
+      >
       <RouterLink :to="{ name: 'exchange' }" class="font-bold">환율</RouterLink>
       <RouterLink :to="{ name: 'maps' }" class="font-bold">주변은행</RouterLink>
 
