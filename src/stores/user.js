@@ -76,6 +76,7 @@ export const useUserStore = defineStore(
     };
 
     const logout = () => {
+      token.value = null;
       loginUser.value = null;
     };
 
@@ -114,8 +115,19 @@ export const useUserStore = defineStore(
       });
     };
 
-    const editLoginuserName = (name) => {
-      loginUser.value.name = name;
+    const editLoginuserName = async (name) => {
+      //loginUser.value.name = name;
+      await axios({
+        method: "put",
+        url: BASE_URL + "/ac/profile/",
+        headers: {
+          Authorization: `Token ${token.value}`,
+        },
+        data: { nickname: name },
+      }).then((res) => {
+        console.log("닉네임 변경", res.data);
+        loginUser.value.user.nickname = res.data.nickname;
+      });
     };
 
     return {
@@ -132,6 +144,7 @@ export const useUserStore = defineStore(
       findEmail,
       changePassword,
       editLoginuserName,
+      getUserInfo,
     };
   },
   {

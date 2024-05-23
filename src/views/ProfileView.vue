@@ -18,9 +18,9 @@
         <!-- 환영메시지, 이메일 -->
         <div>
           <h1 class="text-2xl font-bold">
-            {{ store.loginUser?.name }}님, 어서오세요 🖐
+            {{ store.getLoginUser.user.nickname }}님, 어서오세요 🖐
           </h1>
-          <p class="text-lg">{{ store.loginUser?.email }}</p>
+          <p class="text-lg">{{ store.getLoginUser.user.email }}</p>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
       <div class="flex flex-col justify-center gap-y-2">
         <h1 class="text-2xl font-bold">이름</h1>
         <div class="flex items-center gap-x-2" v-if="!canEditName">
-          {{ store.loginUser?.name }}
+          {{ store.getLoginUser.user.nickname }}
           <img
             @click="changeName"
             src="/assets/icons/name-edit-icon.svg"
@@ -39,25 +39,28 @@
 
         <div class="flex items-center gap-x-2" v-else>
           <input
-            class="pl-2 text-sm border rounded-md w-fit border-theme focus:outline-none"
+            class="p-2 text-sm border rounded-md w-fit border-theme focus:outline-none"
             v-model="name"
           />
           <button
             @click="saveEditName"
-            class="px-2 text-sm text-white border rounded-md bg-theme border-theme"
+            class="px-4 py-2 text-sm text-white border rounded-md bg-theme border-theme"
           >
             저장
           </button>
           <button
             @click="changeName"
-            class="px-2 text-sm font-bold bg-white border rounded-md border-theme text-theme"
+            class="px-4 py-2 text-sm font-bold bg-white border rounded-md border-theme text-theme"
           >
             취소
           </button>
         </div>
       </div>
 
-      <div class="flex flex-col justify-center gap-y-2">
+      <div
+        class="flex flex-col justify-center gap-y-2"
+        v-show="store.getLoginUser.product.length > 0"
+      >
         <h1 class="text-2xl font-bold">차트</h1>
         <div class="items-center gap-x-2 h-[400px]">
           <canvas id="chart">차트</canvas>
@@ -68,8 +71,17 @@
       <div class="flex flex-col justify-center flex-1 gap-y-2">
         <h1 class="text-2xl font-bold">찜한 상품</h1>
 
-        <div class="h-[300px] overflow-scroll flex flex-col gap-y-2">
-          <LikedFinancialProduct v-for="item in 10" :key="item" />
+        <div
+          class="h-[300px] overflow-scroll flex flex-col gap-y-2"
+          v-if="store.getLoginUser.product.length > 0"
+        >
+          <LikedFinancialProduct
+            v-for="item in store.getLoginUser.product"
+            :key="item"
+          />
+        </div>
+        <div v-else class="bg-[#eee] bg-opacity-50 py-4 my-2 rounded-lg">
+          <h1 class="text-lg text-center">찜한 상품이 없습니다.</h1>
         </div>
       </div>
     </div>
@@ -79,6 +91,7 @@
 import LikedFinancialProduct from "@/components/profile/LikedFinancialProduct.vue";
 import { useUserStore } from "@/stores/user";
 import { onMounted, ref } from "vue";
+import { storeToRefs } from "pinia";
 
 //chartjs
 import Chart from "chart.js/auto";
@@ -87,7 +100,7 @@ const barChart = ref(null);
 const store = useUserStore();
 
 const canEditName = ref(false);
-const name = ref(store.loginUser.name);
+const name = ref(store.getLoginUser.user.nickname);
 
 const changeName = () => {
   canEditName.value = !canEditName.value;
