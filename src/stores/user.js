@@ -110,6 +110,7 @@ export const useUserStore = defineStore(
         url: BASE_URL + "/ac/reset_pw/",
         data: { email: email },
       }).then((res) => {
+        console.log(res.data);
         findUser.value = res.data;
       });
     };
@@ -134,6 +135,7 @@ export const useUserStore = defineStore(
         },
       }).then((res) => {
         alert("비밀번호 변경 완료");
+        findUser.value = null;
       });
     };
 

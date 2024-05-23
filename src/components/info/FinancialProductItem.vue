@@ -35,15 +35,17 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-
+import { useFpStore } from "@/stores/fp";
 const router = useRouter();
 
 const props = defineProps({
   item: Object,
 });
 
-const clickFinancialProduct = () => {
+const store = useFpStore();
+const clickFinancialProduct = async () => {
   console.log(props);
+  await store.fetchDetailProduct(props.item.id);
   router.push({ name: "info-detail", params: { id: props.item.id } });
 };
 </script>

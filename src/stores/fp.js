@@ -43,7 +43,7 @@ export const useFpStore = defineStore(
     });
 
     const getDetailImage = computed(() => {
-      return detailProduct.value.product.imageUrl;
+      return detailProduct.value.product?.imgUrl;
     });
 
     //action

@@ -39,13 +39,15 @@
 <script setup>
 import RecoomendTag from "@/components/info/RecoomendTag.vue";
 import { useRouter } from "vue-router";
-
+import { useFpStore } from "@/stores/fp";
 const router = useRouter();
 const props = defineProps({
   product: Object,
 });
 
-const clickRecommendProduct = () => {
+const store = useFpStore();
+const clickRecommendProduct = async () => {
+  await store.fetchDetailProduct(props.product.id);
   router.push({ name: "info-detail", params: { id: props.product.id } });
 };
 </script>
